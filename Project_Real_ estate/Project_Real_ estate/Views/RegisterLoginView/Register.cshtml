@@ -1,0 +1,149 @@
+﻿@model Project_Real__estate.Models.AgentSellerView
+@{
+    
+    Layout = "~/Views/Shared/_LayoutSingle.cshtml";
+}
+<link href="~/css/Register.css" rel="stylesheet" />
+<script src="~/js/Register.js"></script>
+
+
+
+<div class="user-ragistration">
+    <div class="container register">
+        <div class="row">
+            <div class="col-md-3 register-left">
+                <img src="~/Images/icon.png" alt="" />
+                <h3 style=" font-size: 45px; background: -webkit-linear-gradient(#eee, #333); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Welcome</h3>
+                <p style="color:white;">You are 30 seconds away from earning your own money!</p>
+                <a href="@Url.Action("Login", "RegisterLoginView")"><input type="submit" name="" value="Login" /></a><br />
+            </div>
+            <div class="col-md-9 register-right">
+                <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Agent</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Seller</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        @using (Html.BeginForm("RegisterAgent", "RegisterLoginView", FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <h3 class="register-heading">Apply as a Agent</h3>
+                            <div class="row register-form">                                
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.EditorFor(model => model.Agent.AgentName, new { htmlAttributes = new { @class = "form-control", @placeholder = @Html.DisplayNameFor(model => model.Agent.AgentName) } })
+                                        @Html.ValidationMessageFor(model => model.Agent.AgentName, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.EditorFor(model => model.Agent.Email, new { htmlAttributes = new { @class = "form-control", @placeholder = @Html.DisplayNameFor(model => model.Agent.Email) } })
+                                        @Html.ValidationMessageFor(model => model.Agent.Email, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.EditorFor(model => model.Agent.Address, new { htmlAttributes = new { @class = "form-control", @placeholder = @Html.DisplayNameFor(model => model.Agent.Address) } })
+                                        @Html.ValidationMessageFor(model => model.Agent.Address, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.EditorFor(model => model.Agent.Phone, new { htmlAttributes = new { @class = "form-control", @placeholder = @Html.DisplayNameFor(model => model.Agent.Phone) } })
+                                        @Html.ValidationMessageFor(model => model.Agent.Phone, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+
+                                        <div class="maxl">
+                                            @Html.LabelFor(model => model.Agent.EmailHide, htmlAttributes: new { @class = "radio inline" })
+                                            Show: @Html.RadioButton("EmailHide", "False"  )
+                                            Hide: @Html.RadioButton("EmailHide", "True" )
+                                            @Html.ValidationMessageFor(model => model.Agent.EmailHide, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.DropDownList("paymentId", null, htmlAttributes: new { @class = "form-control", @placeholder = @Html.DisplayNameFor(model => model.Agent.Introduction) })
+                                        @Html.ValidationMessageFor(model => model.Agent.paymentId, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.EditorFor(model => model.Agent.Introduction, new { htmlAttributes = new { @class = "form-control", @placeholder = @Html.DisplayNameFor(model => model.Agent.Introduction) } })
+                                        @Html.ValidationMessageFor(model => model.Agent.Introduction, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.EditorFor(model => model.Agent.Password, new { htmlAttributes = new { @class = "form-control", @placeholder = @Html.DisplayNameFor(model => model.Agent.Password) } })
+                                        @Html.ValidationMessageFor(model => model.Agent.Password, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.EditorFor(model => model.Agent.ConfirmPassword, new { htmlAttributes = new { @class = "form-control", @placeholder = @Html.DisplayNameFor(model => model.Agent.ConfirmPassword) } })
+                                        @Html.ValidationMessageFor(model => model.Agent.ConfirmPassword, "", new { @class = "text-danger" })
+                                    </div>
+
+                                    <input type="submit" class="btnRegister" value="Register" />
+                                </div>
+                                
+
+                            </div>
+
+                        }
+                    </div>
+
+
+                    @*=====*@
+                    <div class="tab-pane fade show" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                        @using (Html.BeginForm("RegisterSeller", "RegisterLoginView", FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+                            <h3 class="register-heading">Apply as a Seller</h3>
+                            <div class="row register-form">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.EditorFor(model => model.Seller.Name, new { htmlAttributes = new { @class = "form-control", @placeholder = @Html.DisplayNameFor(model => model.Seller.Name) } })
+                                        @Html.ValidationMessageFor(model => model.Seller.Name, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        Male:   @Html.RadioButton("Gender", "False")
+                                        Female: @Html.RadioButton("Gender", "True")
+                                        @Html.ValidationMessageFor(model => model.Seller.Gender, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.EditorFor(model => model.Seller.Address, new { htmlAttributes = new { @class = "form-control", @placeholder = @Html.DisplayNameFor(model => model.Seller.Address) } })
+                                        @Html.ValidationMessageFor(model => model.Seller.Address, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.EditorFor(model => model.Seller.Birthdate, new { htmlAttributes = new { @class = "form-control", @placeholder = @Html.DisplayNameFor(model => model.Seller.Birthdate) } })
+                                        @Html.ValidationMessageFor(model => model.Seller.Birthdate, "", new { @class = "text-danger" })
+                                    </div>
+
+
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.EditorFor(model => model.Seller.Email, new { htmlAttributes = new { @class = "form-control", @placeholder = @Html.DisplayNameFor(model => model.Seller.Email) } })
+                                        @Html.ValidationMessageFor(model => model.Seller.Email, "", new { @class = "text-danger" })
+                                       
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.EditorFor(model => model.Seller.Phone, new { htmlAttributes = new { @class = "form-control", @placeholder = @Html.DisplayNameFor(model => model.Seller.Phone) } })
+                                        @Html.ValidationMessageFor(model => model.Seller.Phone, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.PasswordFor(model => model.Seller.Password, new { @class = "form-control", @placeholder = "Password" })
+                                        @Html.ValidationMessageFor(model => model.Seller.Password, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.PasswordFor(model => model.Seller.ConfirmPassword, new { @class = "form-control", @placeholder = "Confim Password" })
+                                        @Html.ValidationMessageFor(model => model.Seller.ConfirmPassword, "", new { @class = "text-danger" })
+                                    </div>
+
+                                    <input type="submit" class="btnRegister" value="Register" />
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

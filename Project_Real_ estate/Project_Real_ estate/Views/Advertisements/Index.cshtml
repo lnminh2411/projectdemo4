@@ -1,0 +1,137 @@
+﻿@model PagedList.IPagedList<Project_Real__estate.Models.Advertisement>
+@using PagedList.Mvc;
+
+@{ Layout = "~/Views/Shared/_LayoutAdmin.cshtml"; }
+
+<section class="section dashboard">
+    <div class="row">
+        <p>
+            @Html.ActionLink("Create New", "Create")
+        </p>
+        <div class="col-lg-12">
+            <div class="row">
+                <div class="col-12">
+                    <!-- css 807 217 -->
+                    <div class="card recent-sales">
+                        <h4>Active Seller</h4>
+
+                        @using (Html.BeginForm("Index", "Advertisements", FormMethod.Get, new { id = "form1" }))
+                        {
+                            <p>
+                                @*<div id='Paging'>*@
+                                Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+                                Page Size: @Html.DropDownList("pageSize", ViewBag.CurrentFilter as string)
+                                <input type="submit" value="Search" />
+                                @*</div>*@
+                            </p>
+                        }
+                        <table class="table">
+                            <tr>
+                                <th>
+                                    @Html.ActionLink("Name ", "Index", new
+                                    {
+                                        sortOrder = ViewBag.TitleSortParm,
+                                        currentFilter = ViewBag.CurrentFilter,
+                                        pageSize = ViewBag.psize
+                                    })
+
+                                </th>
+                                <th>
+                                    @Html.ActionLink("Release Date ", "Index", new
+                                    {
+                                        sortOrder = ViewBag.RDateSortParm,
+                                        currentFilter = ViewBag.CurrentFilter,
+                                        pageSize = ViewBag.psize
+                                    })
+                                </th>
+                                <th>
+                                    @Html.ActionLink("Expiration Date ", "Index", new
+                                    {
+                                        sortOrder = ViewBag.EDateSortParm,
+                                        currentFilter = ViewBag.CurrentFilter,
+                                        pageSize = ViewBag.psize
+                                    })
+                                </th>
+
+                                <th>
+                                    @Html.ActionLink("Price ", "Index", new
+                                    {
+                                        sortOrder = ViewBag.PriceSortParm,
+                                        currentFilter = ViewBag.CurrentFilter,
+                                        pageSize = ViewBag.psize
+                                    })
+                                </th>
+                                <th>
+                                    Current Symbol
+                                </th>
+                                <th>
+                                    Activate
+                                </th>
+                                <th></th>
+                            </tr>
+
+                            @foreach (var item in Model)
+                            {
+
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Tiltle)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ReleaseDate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ExpirationDate)
+                                    </td>
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.priceOfAds)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CurrentSymbol)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.isActivate)
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink("Edit", "Edit", new { id = item.adsId }) |
+                                        @Html.ActionLink("Details", "Details", new { id = item.adsId }) |
+                                        @Html.ActionLink("Delete", "Delete", new { id = item.adsId })
+                                    </td>
+                                </tr>
+
+
+                            }
+
+                        </table>
+
+                        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+                        @Html.PagedListPager(Model, page => Url.Action("Index",
+                            new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, pageSize = ViewBag.psize }))
+
+                        <script type="text/javascript">
+                            $(function () {
+                                $("#pageSize").change(function () {
+
+                                    $("#form1").submit();
+                                });
+                            });
+                        </script>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <!-- css 824 217 -->
+                    <div class="card top-selling">
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+</section>
+

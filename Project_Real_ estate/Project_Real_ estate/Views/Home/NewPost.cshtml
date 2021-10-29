@@ -1,0 +1,257 @@
+﻿@model Project_Real__estate.Models.Advertisement
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_LayoutSingle.cshtml";
+}
+<link href="~/Content/post.css" rel="stylesheet" />
+<script src="~/scripts/jquery-3.4.1.min.js"></script>
+
+@*<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>*@
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/post.js" type="text/javascript"></script>
+
+
+
+@{
+    List<SelectListItem> listItems = new List<SelectListItem>();
+    listItems.Add(new SelectListItem
+    {
+        Text = "Sale",
+        Value = "Sale"
+    });
+    listItems.Add(new SelectListItem
+    {
+        Text = "Rent",
+        Value = "Rent",
+        Selected = true
+    });
+    listItems.Add(new SelectListItem
+    {
+        Text = "Project",
+        Value = "Project"
+    });
+}
+<section class="wizard-section">
+    <div class="row no-gutters">
+        <div class="col-12">
+            <div class="form-wizard">
+                @using (Html.BeginForm("NewPost", "Home", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <div class="form-wizard-header">
+                        <p>Fill all form field to go next step</p>
+                        <ul class="list-unstyled form-wizard-steps clearfix">
+                            <li class="active"><span>1</span></li>
+                            <li><span>2</span></li>
+                            <li><span>3</span></li>
+                            <li><span>4</span></li>
+                        </ul>
+                    </div>
+                    @Html.AntiForgeryToken()
+                    <fieldset class="wizard-fieldset show">
+                        <h5>Personal Information</h5>
+                        <div class="row">
+                            <div class="col-md-12">
+                                @Html.LabelFor(model => model.Tiltle, htmlAttributes: new { @class = "control-label col-md-2" })
+                                @Html.EditorFor(model => model.Tiltle, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Tiltle, "", new { @class = "text-danger" })
+                                <div class="wizard-form-error"></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                @Html.LabelFor(model => model.CategoryId, "CategoryId", htmlAttributes: new { @class = "control-label col-md-2" })
+                                @Html.DropDownList("CategoryId", null, htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
+                                <div class="wizard-form-error"></div>
+                            </div>
+                            <div class="col-md-6">
+                                @Html.LabelFor(model => model.StatusHouse, htmlAttributes: new { @class = "control-label col-md-2" })
+                                @Html.DropDownListFor(model => model.StatusHouse, listItems, "-- Select Status --")
+                                @Html.ValidationMessageFor(model => model.StatusHouse, "", new { @class = "text-danger" })
+                                <div class="wizard-form-error"></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                @Html.LabelFor(model => model.Cityprovince, htmlAttributes: new { @class = "control-label col-md-2" })
+                                @Html.EditorFor(model => model.Cityprovince, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Cityprovince, "", new { @class = "text-danger" })
+                                <div class="wizard-form-error"></div>
+                            </div>
+                            <div class="col-md-6">
+                                @Html.LabelFor(model => model.District, htmlAttributes: new { @class = "control-label col-md-2" })
+                                @Html.EditorFor(model => model.District, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.District, "", new { @class = "text-danger" })
+                                <div class="wizard-form-error"></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                @Html.LabelFor(model => model.Ward, htmlAttributes: new { @class = "control-label col-md-2" })
+                                @Html.EditorFor(model => model.Ward, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Ward, "", new { @class = "text-danger" })
+                                <div class="wizard-form-error"></div>
+                            </div>
+                            <div class="col-md-6">
+                                @Html.LabelFor(model => model.Street, htmlAttributes: new { @class = "control-label col-md-2" })
+                                @Html.EditorFor(model => model.Street, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Street, "", new { @class = "text-danger" })
+                                <div class="wizard-form-error"></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                @Html.LabelFor(model => model.ReleaseDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                                @Html.EditorFor(model => model.ReleaseDate, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.ReleaseDate, "", new { @class = "text-danger" })
+                                <div class="wizard-form-error"></div>
+                            </div>
+                            <div class="col-md-6">
+                                @Html.LabelFor(model => model.ExpirationDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                                @Html.EditorFor(model => model.ExpirationDate, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.ExpirationDate, "", new { @class = "text-danger" })
+                                <div class="wizard-form-error"></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                @Html.LabelFor(model => model.priceOfAds, htmlAttributes: new { @class = "control-label col-md-2" })
+                                @Html.EditorFor(model => model.priceOfAds, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.priceOfAds, "", new { @class = "text-danger" })
+                                <div class="wizard-form-error"></div>
+                            </div>
+                            <div class="col-md-6">
+                                @Html.LabelFor(model => model.CurrentSymbol, htmlAttributes: new { @class = "control-label col-md-2" })
+                                @Html.EditorFor(model => model.CurrentSymbol, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.CurrentSymbol, "", new { @class = "text-danger" })
+                                <div class="wizard-form-error"></div>
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <a href="javascript:;" class="form-wizard-next-btn float-right">Next</a>
+                        </div>
+
+
+                    </fieldset>
+                    <fieldset class="wizard-fieldset">
+                        <h5>Desciribe Information</h5>
+                        <div class="row">
+                            <div class="col-md-12">
+                                @Html.LabelFor(model => model.Describe, htmlAttributes: new { @class = "control-label col-md-2" })
+                                @Html.TextAreaFor(model => model.Describe, new { @class = "form-control", @cols = 20, @rows = 7 })
+                                @Html.ValidationMessageFor(model => model.Describe, "", new { @class = "text-danger" })
+                                <div class="wizard-form-error"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="field" align="left">
+                                <h3>Upload your images</h3>
+                                <input type="file" id="files" name="files[]" multiple />
+                            </div>
+                            @*<div style='padding:14px'>
+                                    <label for="files">Select multiple files: </label>
+                                    <input id="files" type="file" multiple />
+                                </div>
+                                <div style='padding:14px; margin:auto' ;>
+                                    <div id="sortableImgThumbnailPreview">
+
+                                    </div>
+
+                                </div>*@
+
+                        </div>
+                        <div class="form-group clearfix">
+                            <a href="javascript:;" class="form-wizard-previous-btn float-left">Previous</a>
+                            <a href="javascript:;" class="form-wizard-next-btn float-right">Next</a>
+                        </div>
+                    </fieldset>
+                    <fieldset class="wizard-fieldset">
+                        <h5>Addition Information</h5>
+                        <div class="row">
+                            <div class="col-md-6">
+                                @Html.LabelFor(model => model.Facade, htmlAttributes: new { @class = "control-label col-md-2" })
+                                @Html.EditorFor(model => model.Facade, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Facade, "", new { @class = "text-danger" })
+                                <div class="wizard-form-error"></div>
+                            </div>
+                            <div class="col-md-6">
+                                @Html.LabelFor(model => model.Gateway, htmlAttributes: new { @class = "control-label col-md-2" })
+                                @Html.EditorFor(model => model.Gateway, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Gateway, "", new { @class = "text-danger" })
+                                <div class="wizard-form-error"></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                @Html.LabelFor(model => model.floors, htmlAttributes: new { @class = "control-label col-md-2" })
+                                @Html.EditorFor(model => model.floors, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.floors, "", new { @class = "text-danger" })
+                                <div class="wizard-form-error"></div>
+                            </div>
+                            <div class="col-md-6">
+                                @Html.LabelFor(model => model.Bedrooms, htmlAttributes: new { @class = "control-label col-md-2" })
+                                @Html.EditorFor(model => model.Bedrooms, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Bedrooms, "", new { @class = "text-danger" })
+                                <div class="wizard-form-error"></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                @Html.LabelFor(model => model.Toilets, htmlAttributes: new { @class = "control-label col-md-2" })
+                                @Html.EditorFor(model => model.Toilets, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Toilets, "", new { @class = "text-danger" })
+                                <div class="wizard-form-error"></div>
+                            </div>
+                            <div class="col-md-6">
+                                @Html.LabelFor(model => model.Area, htmlAttributes: new { @class = "control-label col-md-2" })
+                                @Html.EditorFor(model => model.Area, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Area, "", new { @class = "text-danger" })
+                                <div class="wizard-form-error"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                @Html.LabelFor(model => model.furniture, htmlAttributes: new { @class = "control-label col-md-2" })
+                                @Html.TextAreaFor(model => model.furniture, new { @class = "form-control", @cols = 20, @rows = 7 })
+                                @Html.ValidationMessageFor(model => model.furniture, "", new { @class = "text-danger" })
+                                <div class="wizard-form-error"></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                @Html.LabelFor(model => model.EstatePrice, htmlAttributes: new { @class = "control-label col-md-2" })
+                                @Html.EditorFor(model => model.EstatePrice, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.EstatePrice, "", new { @class = "text-danger" })
+                                <div class="wizard-form-error"></div>
+                            </div>
+                            <div class="col-md-6">
+                                @Html.LabelFor(model => model.PaymentId, "PaymentId", htmlAttributes: new { @class = "control-label col-md-2" })
+                                @Html.DropDownList("PaymentId", null, htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.PaymentId, "", new { @class = "text-danger" })
+                                <div class="wizard-form-error"></div>
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <a href="javascript:;" class="form-wizard-previous-btn float-left">Previous</a>
+                            @*<a href="javascript:;" class="form-wizard-submit float-right">Submit</a>*@
+                            <input type="submit" class="form-wizard-submit float-right" value="Submit" />
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="wizard-fieldset">
+                        <h5>Merci</h5>
+                    </fieldset>
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+

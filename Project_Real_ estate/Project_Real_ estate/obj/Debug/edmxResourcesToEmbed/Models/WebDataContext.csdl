@@ -1,0 +1,333 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="projectModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Advertisement">
+    <Key>
+      <PropertyRef Name="adsId" />
+    </Key>
+    <Property Name="adsId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Tiltle" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="ReleaseDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="ExpirationDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="SellerId" Type="Int32" />
+    <Property Name="AgentId" Type="Int32" />
+    <Property Name="PaymentId" Type="Int32" />
+    <Property Name="CategoryId" Type="Int32" />
+    <Property Name="Describe" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CurrentSymbol" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="priceOfAds" Type="Double" />
+    <Property Name="EstatePrice" Type="Double" Nullable="false" />
+    <Property Name="Facade" Type="Double" />
+    <Property Name="Gateway" Type="Double" />
+    <Property Name="floors" Type="Int32" />
+    <Property Name="Bedrooms" Type="Int32" />
+    <Property Name="Toilets" Type="Int32" />
+    <Property Name="furniture" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="Area" Type="Double" Nullable="false" />
+    <Property Name="Cityprovince" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="District" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Ward" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Street" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="isActivate" Type="Boolean" Nullable="false" />
+    <Property Name="UserId" Type="Int32" />
+    <Property Name="StatusHouse" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Agent" Relationship="Self.FK_Agent_Adsvertise" FromRole="Advertisement" ToRole="Agent" />
+    <NavigationProperty Name="Category" Relationship="Self.FK_Category_Adsvertise" FromRole="Advertisement" ToRole="Category" />
+    <NavigationProperty Name="Images" Relationship="Self.FK_Image_Adsvertise" FromRole="Advertisement" ToRole="Image" />
+    <NavigationProperty Name="Payment" Relationship="Self.FK_Payment_Adsvertise" FromRole="Advertisement" ToRole="Payment" />
+    <NavigationProperty Name="Reports" Relationship="Self.FK_Report_Adsvertise" FromRole="Advertisement" ToRole="Report" />
+    <NavigationProperty Name="Seller" Relationship="Self.FK_Seller_Adsvertise" FromRole="Advertisement" ToRole="Seller" />
+    <NavigationProperty Name="User" Relationship="Self.FK_User_Adsvertise" FromRole="Advertisement" ToRole="User" />
+  </EntityType>
+  <EntityType Name="Agent">
+    <Key>
+      <PropertyRef Name="AgentId" />
+    </Key>
+    <Property Name="AgentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AgentName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Phone" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="isActivate" Type="Boolean" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Introduction" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="EmailHide" Type="Boolean" Nullable="false" />
+    <Property Name="paymentId" Type="Int32" />
+    <Property Name="UserId" Type="Int32" />
+    <NavigationProperty Name="Advertisements" Relationship="Self.FK_Agent_Adsvertise" FromRole="Agent" ToRole="Advertisement" />
+    <NavigationProperty Name="User" Relationship="Self.FK_Agent_User" FromRole="Agent" ToRole="User" />
+    <NavigationProperty Name="Payment" Relationship="Self.FK_Payment_Agent" FromRole="Agent" ToRole="Payment" />
+    <NavigationProperty Name="Reports" Relationship="Self.FK_Report_Agent" FromRole="Agent" ToRole="Report" />
+  </EntityType>
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="CategoryId" />
+    </Key>
+    <Property Name="CategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CategoryName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Advertisements" Relationship="Self.FK_Category_Adsvertise" FromRole="Category" ToRole="Advertisement" />
+  </EntityType>
+  <EntityType Name="Image">
+    <Key>
+      <PropertyRef Name="ImageId" />
+    </Key>
+    <Property Name="ImageId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FileName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Extension" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="AdsId" Type="Int32" />
+    <NavigationProperty Name="Advertisement" Relationship="Self.FK_Image_Adsvertise" FromRole="Image" ToRole="Advertisement" />
+  </EntityType>
+  <EntityType Name="Payment">
+    <Key>
+      <PropertyRef Name="PaymentId" />
+    </Key>
+    <Property Name="PaymentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PaymentName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Advertisements" Relationship="Self.FK_Payment_Adsvertise" FromRole="Payment" ToRole="Advertisement" />
+    <NavigationProperty Name="Agents" Relationship="Self.FK_Payment_Agent" FromRole="Payment" ToRole="Agent" />
+  </EntityType>
+  <EntityType Name="Report">
+    <Key>
+      <PropertyRef Name="ReportId" />
+    </Key>
+    <Property Name="ReportId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ReportDate" Type="DateTime" Precision="0" />
+    <Property Name="AdsId" Type="Int32" />
+    <Property Name="SellerId" Type="Int32" />
+    <Property Name="AgentId" Type="Int32" />
+    <Property Name="Price" Type="Double" />
+    <NavigationProperty Name="Advertisement" Relationship="Self.FK_Report_Adsvertise" FromRole="Report" ToRole="Advertisement" />
+    <NavigationProperty Name="Agent" Relationship="Self.FK_Report_Agent" FromRole="Report" ToRole="Agent" />
+    <NavigationProperty Name="Seller" Relationship="Self.FK_Report_Seller" FromRole="Report" ToRole="Seller" />
+  </EntityType>
+  <EntityType Name="Seller">
+    <Key>
+      <PropertyRef Name="SellerId" />
+    </Key>
+    <Property Name="SellerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Gender" Type="Boolean" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Birthdate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Phone" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="isActivate" Type="Boolean" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="UserId" Type="Int32" />
+    <NavigationProperty Name="Advertisements" Relationship="Self.FK_Seller_Adsvertise" FromRole="Seller" ToRole="Advertisement" />
+    <NavigationProperty Name="Reports" Relationship="Self.FK_Report_Seller" FromRole="Seller" ToRole="Report" />
+    <NavigationProperty Name="User" Relationship="Self.FK_Seller_User" FromRole="Seller" ToRole="User" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Advertisements" Relationship="Self.FK_User_Adsvertise" FromRole="User" ToRole="Advertisement" />
+    <NavigationProperty Name="Agents" Relationship="Self.FK_Agent_User" FromRole="User" ToRole="Agent" />
+    <NavigationProperty Name="Sellers" Relationship="Self.FK_Seller_User" FromRole="User" ToRole="Seller" />
+  </EntityType>
+  <Association Name="FK_Agent_Adsvertise">
+    <End Role="Agent" Type="Self.Agent" Multiplicity="0..1" />
+    <End Role="Advertisement" Type="Self.Advertisement" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Agent">
+        <PropertyRef Name="AgentId" />
+      </Principal>
+      <Dependent Role="Advertisement">
+        <PropertyRef Name="AgentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Category_Adsvertise">
+    <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+    <End Role="Advertisement" Type="Self.Advertisement" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="CategoryId" />
+      </Principal>
+      <Dependent Role="Advertisement">
+        <PropertyRef Name="CategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Image_Adsvertise">
+    <End Role="Advertisement" Type="Self.Advertisement" Multiplicity="0..1" />
+    <End Role="Image" Type="Self.Image" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Advertisement">
+        <PropertyRef Name="adsId" />
+      </Principal>
+      <Dependent Role="Image">
+        <PropertyRef Name="AdsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Payment_Adsvertise">
+    <End Role="Payment" Type="Self.Payment" Multiplicity="0..1" />
+    <End Role="Advertisement" Type="Self.Advertisement" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Payment">
+        <PropertyRef Name="PaymentId" />
+      </Principal>
+      <Dependent Role="Advertisement">
+        <PropertyRef Name="PaymentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Report_Adsvertise">
+    <End Role="Advertisement" Type="Self.Advertisement" Multiplicity="0..1" />
+    <End Role="Report" Type="Self.Report" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Advertisement">
+        <PropertyRef Name="adsId" />
+      </Principal>
+      <Dependent Role="Report">
+        <PropertyRef Name="AdsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Seller_Adsvertise">
+    <End Role="Seller" Type="Self.Seller" Multiplicity="0..1" />
+    <End Role="Advertisement" Type="Self.Advertisement" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Seller">
+        <PropertyRef Name="SellerId" />
+      </Principal>
+      <Dependent Role="Advertisement">
+        <PropertyRef Name="SellerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_User_Adsvertise">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="Advertisement" Type="Self.Advertisement" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Advertisement">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Agent_User">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="Agent" Type="Self.Agent" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Agent">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Payment_Agent">
+    <End Role="Payment" Type="Self.Payment" Multiplicity="0..1" />
+    <End Role="Agent" Type="Self.Agent" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Payment">
+        <PropertyRef Name="PaymentId" />
+      </Principal>
+      <Dependent Role="Agent">
+        <PropertyRef Name="paymentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Report_Agent">
+    <End Role="Agent" Type="Self.Agent" Multiplicity="0..1" />
+    <End Role="Report" Type="Self.Report" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Agent">
+        <PropertyRef Name="AgentId" />
+      </Principal>
+      <Dependent Role="Report">
+        <PropertyRef Name="AgentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Report_Seller">
+    <End Role="Seller" Type="Self.Seller" Multiplicity="0..1" />
+    <End Role="Report" Type="Self.Report" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Seller">
+        <PropertyRef Name="SellerId" />
+      </Principal>
+      <Dependent Role="Report">
+        <PropertyRef Name="SellerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Seller_User">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="Seller" Type="Self.Seller" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Seller">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="projectEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Advertisements" EntityType="Self.Advertisement" />
+    <EntitySet Name="Agents" EntityType="Self.Agent" />
+    <EntitySet Name="Categories" EntityType="Self.Category" />
+    <EntitySet Name="Images" EntityType="Self.Image" />
+    <EntitySet Name="Payments" EntityType="Self.Payment" />
+    <EntitySet Name="Reports" EntityType="Self.Report" />
+    <EntitySet Name="Sellers" EntityType="Self.Seller" />
+    <EntitySet Name="Users" EntityType="Self.User" />
+    <AssociationSet Name="FK_Agent_Adsvertise" Association="Self.FK_Agent_Adsvertise">
+      <End Role="Agent" EntitySet="Agents" />
+      <End Role="Advertisement" EntitySet="Advertisements" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Category_Adsvertise" Association="Self.FK_Category_Adsvertise">
+      <End Role="Category" EntitySet="Categories" />
+      <End Role="Advertisement" EntitySet="Advertisements" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Image_Adsvertise" Association="Self.FK_Image_Adsvertise">
+      <End Role="Advertisement" EntitySet="Advertisements" />
+      <End Role="Image" EntitySet="Images" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Payment_Adsvertise" Association="Self.FK_Payment_Adsvertise">
+      <End Role="Payment" EntitySet="Payments" />
+      <End Role="Advertisement" EntitySet="Advertisements" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Report_Adsvertise" Association="Self.FK_Report_Adsvertise">
+      <End Role="Advertisement" EntitySet="Advertisements" />
+      <End Role="Report" EntitySet="Reports" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Seller_Adsvertise" Association="Self.FK_Seller_Adsvertise">
+      <End Role="Seller" EntitySet="Sellers" />
+      <End Role="Advertisement" EntitySet="Advertisements" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User_Adsvertise" Association="Self.FK_User_Adsvertise">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Advertisement" EntitySet="Advertisements" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Agent_User" Association="Self.FK_Agent_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Agent" EntitySet="Agents" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Payment_Agent" Association="Self.FK_Payment_Agent">
+      <End Role="Payment" EntitySet="Payments" />
+      <End Role="Agent" EntitySet="Agents" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Report_Agent" Association="Self.FK_Report_Agent">
+      <End Role="Agent" EntitySet="Agents" />
+      <End Role="Report" EntitySet="Reports" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Report_Seller" Association="Self.FK_Report_Seller">
+      <End Role="Seller" EntitySet="Sellers" />
+      <End Role="Report" EntitySet="Reports" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Seller_User" Association="Self.FK_Seller_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Seller" EntitySet="Sellers" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

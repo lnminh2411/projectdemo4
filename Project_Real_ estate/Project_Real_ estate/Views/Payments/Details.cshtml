@@ -1,0 +1,48 @@
+﻿@model Project_Real__estate.Models.Payment
+
+@{ Layout = null; }
+
+@{ Layout = "~/Views/Shared/_LayoutAdmin.cshtml"; }
+
+<section class="section dashboard">
+    <div class="row">
+
+        <div class="col-lg-12">
+            <div class="row">
+                <div class="col-12">
+                    <!-- css 807 217 -->
+                    <div class="card recent-sales">
+                        <div>
+                            <h4>User</h4>
+                            <hr />
+                            <dl class="dl-horizontal">
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.PaymentName)
+                                </dt>
+
+                                <dd>
+                                    @Html.DisplayFor(model => model.PaymentName)
+                                </dd>
+
+                            </dl>
+                        </div>
+                        <p>
+                            @Html.ActionLink("Edit", "Edit", new { id = Model.PaymentId }) |
+                            @Html.ActionLink("Back to List", "Index")
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <!-- css 824 217 -->
+                    <div class="card top-selling">
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+</section>

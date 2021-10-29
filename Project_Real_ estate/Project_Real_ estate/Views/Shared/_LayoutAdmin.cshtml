@@ -1,0 +1,159 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>Admin</title>
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet">
+
+    <link href="~/css/style.css" rel="stylesheet" />
+    <link href="~/css/styles.css" rel="stylesheet" />
+    <link href="~/Content/PagedList.css" rel="stylesheet" />
+    <script src="~/js/main.js"></script>
+</head>
+
+<body>
+
+    <!-- ======= Header ======= -->
+    <header id="header" class="header fixed-top d-flex align-items-center">
+
+        <div class="d-flex align-items-center justify-content-between">
+            <a href="@Url.Action("Index")" class="logo d-flex align-items-center">
+                <span class="d-none d-lg-block">ADMIN</span>
+            </a>
+            <i class="bi bi-list toggle-sidebar-btn"></i>
+        </div>
+
+        <nav class="header-nav ms-auto">
+            <ul class="d-flex align-items-center">
+                <li>
+                    <a class="dropdown-item d-flex align-items-center" href="@Url.Action("Logout","Admin")">
+                        <i class="bi bi-box-arrow-right"></i>
+                        <span>Logout</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+
+    </header>
+    <!-- End Header -->
+    <!-- ======= Sidebar ======= -->
+    <aside id="sidebar" class="sidebar">
+
+        <ul class="sidebar-nav" id="sidebar-nav">
+
+            <li class="nav-item">
+                <a class="nav-link " href="@Url.Action("Index","Admin")">
+                    Dashboard
+                </a>
+            </li>
+
+            <li class="nav-heading">Main</li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-menu-button-wide"></i><span>Advertisement</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+
+                    <li>
+                        <a href="@Url.Action("Activate","Advertisements")">
+                            <i class="bi bi-circle"></i><span>Activate</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("NotActivate","Advertisements")">
+                            <i class="bi bi-circle"></i><span>Not Activate</span>
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-journal-text"></i><span>Agent</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a href="@Url.Action("Activate","Agents")">
+                            <i class="bi bi-circle"></i><span>Activate</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("NotActivate","Agents")">
+                            <i class="bi bi-circle"></i><span>NotActivate</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-gem"></i><span>Seller</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a href="@Url.Action("Activate","Sellers")">
+                            <i class="bi bi-circle"></i><span>Activate</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("NotActivate","Sellers")">
+                            <i class="bi bi-circle"></i><span>NotActivate</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="nav-heading">Others</li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="@Url.Action("Index","Categories")">
+                    <i class="bi bi-person"></i>
+                    <span>Category</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="@Url.Action("Index","Images")">
+                    <i class="bi bi-question-circle"></i>
+                    <span>Image</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="@Url.Action("Index","Payments")">
+                    <i class="bi bi-card-list"></i>
+                    <span>Payment</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="@Url.Action("Index","Reports")">
+                    <i class="bi bi-box-arrow-in-right"></i>
+                    <span>Report</span>
+                </a>
+            </li>
+        </ul>
+
+    </aside>
+    <!-- End Sidebar-->
+    <!-- ======= Main ======= -->
+    <main id="main" class="main">
+        @RenderBody()
+
+    </main>
+    <!-- End #main -->
+</body>
+
+</html>

@@ -1,0 +1,122 @@
+﻿@model PagedList.IPagedList<Project_Real__estate.Models.Agent>
+@using PagedList.Mvc;
+
+@{ Layout = "~/Views/Shared/_LayoutAdmin.cshtml"; }
+
+<section class="section dashboard">
+    <div class="row">
+        <p>
+            @Html.ActionLink("Create New", "Create")
+        </p>
+        <div class="col-lg-12">
+            <div class="row">
+                <div class="col-12">
+                    <!--css 807 217-->
+                    <div class="card recent-sales">
+                        <h4>Active Agent</h4>
+
+                        @using (Html.BeginForm("Index", "Agents", FormMethod.Get, new { id = "form1" }))
+                        {
+                            <p>
+                                @*<div id='Paging'>*@
+                                Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+                                Page Size: @Html.DropDownList("pageSize", ViewBag.CurrentFilter as string)
+                                <input type="submit" value="Search" />
+                                @*</div>*@
+                            </p>
+                        }
+                        <table class="table">
+                            <tr>
+                                <th>
+                                    @Html.ActionLink("Name ", "Index", new
+                                    {
+                                        sortOrder = ViewBag.NameSortParm,
+                                        currentFilter = ViewBag.CurrentFilter,
+                                        pageSize = ViewBag.psize
+                                    })
+                                </th>
+                                <th>
+                                    Email
+                                </th>
+
+                                <th>
+                                    @Html.ActionLink("User ", "Index", new
+                                    {
+                                        sortOrder = ViewBag.UserSortParm,
+                                        currentFilter = ViewBag.CurrentFilter,
+                                        pageSize = ViewBag.psize
+                                    })
+                                </th>
+                                <th>
+                                    @Html.ActionLink("Payment ", "Index", new
+                                    {
+                                        sortOrder = ViewBag.PaymentSortParm,
+                                        currentFilter = ViewBag.CurrentFilter,
+                                        pageSize = ViewBag.psize
+                                    })
+                                </th>
+                                <th>
+                                    @*@Html.DisplayNameFor(model => model.isActivate)*@
+                                    Activate
+                                </th>
+                                <th></th>
+                            </tr>
+
+                            @foreach (var item in Model)
+                            {
+                                
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.AgentName)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Email)
+                                        </td>
+
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.User.UserName)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Payment.PaymentName)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.isActivate)
+                                        </td>
+                                        <td>
+                                            @Html.ActionLink("Edit", "Edit", new { id = item.AgentId }) |
+                                            @Html.ActionLink("Details", "Details", new { id = item.AgentId }) |
+                                            @Html.ActionLink("Delete", "Delete", new { id = item.AgentId })
+                                        </td>
+                                    </tr>
+                                
+
+                            }
+
+                        </table>
+
+                        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+                        @Html.PagedListPager(Model, page => Url.Action("Index",
+                            new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, pageSize = ViewBag.psize }))
+
+                        <script type="text/javascript">
+                            $(function () {
+                                $("#pageSize").change(function () {
+
+                                    $("#form1").submit();
+                                });
+                            });
+                        </script>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <!--css 824 217-->
+                    <div class="card top-selling">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,77 @@
+﻿@model IEnumerable<Project_Real__estate.Models.Report>
+
+@{ Layout = "~/Views/Shared/_LayoutAdmin.cshtml"; }
+
+<section class="section dashboard">
+    <div class="row">
+
+        <div class="col-lg-12">
+            <div class="row">
+                <div class="col-12">
+                    <!-- css 807 217 -->
+                    <div class="card recent-sales">
+                        <p>
+                            @Html.ActionLink("Create New", "Create")
+                        </p>
+                        <table class="table">
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ReportDate)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Price)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Advertisement.Tiltle)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Agent.AgentName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Seller.Name)
+                                </th>
+                                <th></th>
+                            </tr>
+
+                            @foreach (var item in Model)
+                            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ReportDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Advertisement.Tiltle)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Agent.AgentName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Seller.Name)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.ReportId }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.ReportId }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.ReportId })
+                    </td>
+                </tr>}
+
+                        </table>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <!-- css 824 217 -->
+                    <div class="card top-selling">
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+</section>

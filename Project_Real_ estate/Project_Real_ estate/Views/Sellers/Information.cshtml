@@ -1,0 +1,39 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Information</title>
+</head>
+<body>
+    <div class="row justify-content-md-start">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    Welcome
+                </div>
+                <div class="card-body">
+                    @if (Session["SellerId"] != null)
+                    {
+                        <p>Name: @Session["Name"]</p>
+                        <p>Email: @Session["Email"]</p>
+                        <p>Birthdate: @Session["Birthdate"]</p>
+                        <p>Phone: @Session["Phone"]</p>
+                        <p>Address: @Session["Address"]</p>
+                        <p>Gender: @Session["Gender"]</p>
+                        <p>Activate: @Session["isActivate"]</p>
+                        <a href="@Url.Action("Logout","Seller")" class="btn btn-warning">Logout</a>
+                    }
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>

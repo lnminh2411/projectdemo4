@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="0717f70693a5400db2846c2273090bf1" Name="Diagram1">
+        <EntityTypeShape EntityType="projectModel.Advertisement" Width="1.5" PointX="5.25" PointY="12.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="projectModel.Agent" Width="1.5" PointX="3" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="projectModel.Category" Width="1.5" PointX="3" PointY="15.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="projectModel.Image" Width="1.5" PointX="7.5" PointY="15.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="projectModel.Payment" Width="1.5" PointX="0.75" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="projectModel.Report" Width="1.5" PointX="10.5" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="projectModel.Seller" Width="1.5" PointX="3" PointY="20.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="projectModel.User" Width="1.5" PointX="0.75" PointY="8.75" IsExpanded="true" />
+        <AssociationConnector Association="projectModel.FK_Agent_Adsvertise" ManuallyRouted="false" />
+        <AssociationConnector Association="projectModel.FK_Category_Adsvertise" ManuallyRouted="false" />
+        <AssociationConnector Association="projectModel.FK_Image_Adsvertise" ManuallyRouted="false" />
+        <AssociationConnector Association="projectModel.FK_Payment_Adsvertise" ManuallyRouted="false" />
+        <AssociationConnector Association="projectModel.FK_Report_Adsvertise" ManuallyRouted="false" />
+        <AssociationConnector Association="projectModel.FK_Seller_Adsvertise" ManuallyRouted="false" />
+        <AssociationConnector Association="projectModel.FK_User_Adsvertise" ManuallyRouted="false" />
+        <AssociationConnector Association="projectModel.FK_Agent_User" ManuallyRouted="false" />
+        <AssociationConnector Association="projectModel.FK_Payment_Agent" ManuallyRouted="false" />
+        <AssociationConnector Association="projectModel.FK_Report_Agent" ManuallyRouted="false" />
+        <AssociationConnector Association="projectModel.FK_Report_Seller" ManuallyRouted="false" />
+        <AssociationConnector Association="projectModel.FK_Seller_User" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
