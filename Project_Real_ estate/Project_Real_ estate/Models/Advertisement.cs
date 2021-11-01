@@ -84,6 +84,10 @@ namespace Project_Real__estate.Models
         public virtual User User { get; set; }
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
+            if (ReleaseDate < DateTime.Now)
+            {
+                yield return new ValidationResult("Release Date must be greater than Now", new[] { "ReleaseDate" });
+            }
             if (ExpirationDate < ReleaseDate)
             {
                 yield return new ValidationResult("Expiration Date must be greater than Release Date", new[] { "ExpirationDate" });

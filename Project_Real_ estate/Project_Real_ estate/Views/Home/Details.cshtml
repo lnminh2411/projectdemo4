@@ -315,24 +315,22 @@
                                     </figure>
 
                                     <ul class="list-unstyled mb-0">
-                                        @if (Model.Agent.AgentId != null)
-                                        {
+                                        <!--Hien thong tin cua agent hay seller-->
                                             <li>
                                                 <i class=" fa fa-building mr-1"></i>@Html.DisplayFor(model => model.Agent.AgentName)
                                             </li>
                                             <li>
                                                 <i class="fa fa-phone-square mr-1"></i>@Html.DisplayFor(model => model.Agent.Phone)
                                             </li>
-                                        }
-                                        else if (Model.Seller.SellerId != null)
-                                        {
+                                        
+                                        
                                             <li>
                                                 <i class=" fa fa-building mr-1"></i>@Html.DisplayFor(model => model.Seller.Name)
                                             </li>
                                             <li>
                                                 <i class="fa fa-phone-square mr-1"></i>@Html.DisplayFor(model => model.Seller.Phone)
                                             </li>
-                                        }
+                                        
                                         <li>
                                             <a href="javascript:void(0)" class="text-primary">View My Listing</a>
                                         </li>

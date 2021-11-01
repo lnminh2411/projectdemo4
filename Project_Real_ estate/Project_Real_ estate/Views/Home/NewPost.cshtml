@@ -54,124 +54,161 @@
                         </ul>
                     </div>
                     @Html.AntiForgeryToken()
-                    <fieldset class="wizard-fieldset show">
-                        <h5>Personal Information</h5>
-                        <div class="row">
-                            <div class="col-md-12">
-                                @Html.LabelFor(model => model.Tiltle, htmlAttributes: new { @class = "control-label col-md-2" })
-                                @Html.EditorFor(model => model.Tiltle, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Tiltle, "", new { @class = "text-danger" })
-                                <div class="wizard-form-error"></div>
+            <fieldset class="wizard-fieldset show">
+                <h5>Personal Information</h5>
+                <div class="row">
+                    @if (Session["AgentId"] != null)
+                    {
+                        <div class="col-md-12">
+                            @Html.LabelFor(model => model.Agent.AgentName, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="form-control">
+                                @Session["AgentName"]
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                @Html.LabelFor(model => model.CategoryId, "CategoryId", htmlAttributes: new { @class = "control-label col-md-2" })
-                                @Html.DropDownList("CategoryId", null, htmlAttributes: new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
-                                <div class="wizard-form-error"></div>
-                            </div>
-                            <div class="col-md-6">
-                                @Html.LabelFor(model => model.StatusHouse, htmlAttributes: new { @class = "control-label col-md-2" })
-                                @Html.DropDownListFor(model => model.StatusHouse, listItems, "-- Select Status --")
-                                @Html.ValidationMessageFor(model => model.StatusHouse, "", new { @class = "text-danger" })
-                                <div class="wizard-form-error"></div>
+                    }
+                    else if (Session["SellerId"] != null)
+                    {
+                        <div class="col-md-12">
+                            @Html.LabelFor(model => model.Seller.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="form-control">
+                                @Session["Name"]
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                @Html.LabelFor(model => model.Cityprovince, htmlAttributes: new { @class = "control-label col-md-2" })
-                                @Html.EditorFor(model => model.Cityprovince, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Cityprovince, "", new { @class = "text-danger" })
-                                <div class="wizard-form-error"></div>
-                            </div>
-                            <div class="col-md-6">
-                                @Html.LabelFor(model => model.District, htmlAttributes: new { @class = "control-label col-md-2" })
-                                @Html.EditorFor(model => model.District, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.District, "", new { @class = "text-danger" })
-                                <div class="wizard-form-error"></div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                @Html.LabelFor(model => model.Ward, htmlAttributes: new { @class = "control-label col-md-2" })
-                                @Html.EditorFor(model => model.Ward, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Ward, "", new { @class = "text-danger" })
-                                <div class="wizard-form-error"></div>
-                            </div>
-                            <div class="col-md-6">
-                                @Html.LabelFor(model => model.Street, htmlAttributes: new { @class = "control-label col-md-2" })
-                                @Html.EditorFor(model => model.Street, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Street, "", new { @class = "text-danger" })
-                                <div class="wizard-form-error"></div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                @Html.LabelFor(model => model.ReleaseDate, htmlAttributes: new { @class = "control-label col-md-2" })
-                                @Html.EditorFor(model => model.ReleaseDate, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.ReleaseDate, "", new { @class = "text-danger" })
-                                <div class="wizard-form-error"></div>
-                            </div>
-                            <div class="col-md-6">
-                                @Html.LabelFor(model => model.ExpirationDate, htmlAttributes: new { @class = "control-label col-md-2" })
-                                @Html.EditorFor(model => model.ExpirationDate, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.ExpirationDate, "", new { @class = "text-danger" })
-                                <div class="wizard-form-error"></div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                @Html.LabelFor(model => model.priceOfAds, htmlAttributes: new { @class = "control-label col-md-2" })
-                                @Html.EditorFor(model => model.priceOfAds, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.priceOfAds, "", new { @class = "text-danger" })
-                                <div class="wizard-form-error"></div>
-                            </div>
-                            <div class="col-md-6">
-                                @Html.LabelFor(model => model.CurrentSymbol, htmlAttributes: new { @class = "control-label col-md-2" })
-                                @Html.EditorFor(model => model.CurrentSymbol, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.CurrentSymbol, "", new { @class = "text-danger" })
-                                <div class="wizard-form-error"></div>
-                            </div>
-                        </div>
-                        <div class="form-group clearfix">
-                            <a href="javascript:;" class="form-wizard-next-btn float-right">Next</a>
-                        </div>
+                    }
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        @Html.LabelFor(model => model.Tiltle, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.EditorFor(model => model.Tiltle, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Tiltle, "", new { @class = "text-danger" })
+                        <div class="wizard-form-error"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        @Html.LabelFor(model => model.CategoryId, "CategoryId", htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.DropDownList("CategoryId", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
+                        <div class="wizard-form-error"></div>
+                    </div>
+                    <div class="col-md-6">
+                        @Html.LabelFor(model => model.StatusHouse, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.DropDownListFor(model => model.StatusHouse, listItems, "-- Select Status --", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.StatusHouse, "", new { @class = "text-danger" })
+                        <div class="wizard-form-error"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        @Html.LabelFor(model => model.Cityprovince, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.EditorFor(model => model.Cityprovince, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Cityprovince, "", new { @class = "text-danger" })
+                        <div class="wizard-form-error"></div>
+                    </div>
+                    <div class="col-md-6">
+                        @Html.LabelFor(model => model.District, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.EditorFor(model => model.District, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.District, "", new { @class = "text-danger" })
+                        <div class="wizard-form-error"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        @Html.LabelFor(model => model.Ward, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.EditorFor(model => model.Ward, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Ward, "", new { @class = "text-danger" })
+                        <div class="wizard-form-error"></div>
+                    </div>
+                    <div class="col-md-6">
+                        @Html.LabelFor(model => model.Street, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.EditorFor(model => model.Street, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Street, "", new { @class = "text-danger" })
+                        <div class="wizard-form-error"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        @Html.LabelFor(model => model.ReleaseDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <p>@Html.EditorFor(model => model.ReleaseDate, new { htmlAttributes = new { @class = "form-control", onchange = "cal()" } })</p>
+                        @Html.ValidationMessageFor(model => model.ReleaseDate, "", new { @class = "text-danger" })
+                        <div class="wizard-form-error"></div>
+                    </div>
+                    <div class="col-md-4">
+                        @Html.LabelFor(model => model.ExpirationDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <p>@Html.EditorFor(model => model.ExpirationDate, new { htmlAttributes = new { @class = "form-control", onchange = "cal()" } })</p>
+                        @Html.ValidationMessageFor(model => model.ExpirationDate, "", new { @class = "text-danger" })
+                        <div class="wizard-form-error"></div>
+                    </div>
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.priceOfAds, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.EditorFor(model => model.priceOfAds, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                        @Html.ValidationMessageFor(model => model.priceOfAds, "", new { @class = "text-danger" })
+                        <div class="wizard-form-error"></div>
+                    </div>
+                    <div class="col-md-1">
+                        @Html.LabelFor(model => model.CurrentSymbol, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.EditorFor(model => model.CurrentSymbol, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.CurrentSymbol, "", new { @class = "text-danger" })
+                        <div class="wizard-form-error"></div>
+                    </div>
+                </div>
+
+                <script type="text/javascript">
+                    function GetDays() {
+                        var releaseDate = new Date(document.getElementById("ReleaseDate").value);
+                        var expirationDate = new Date(document.getElementById("ExpirationDate").value);
+                        return parseFloat(((expirationDate - releaseDate) / (24 * 3600 * 1000)) * 5);
+                    }
+
+                    function cal() {
+                        if (document.getElementById("ExpirationDate")) {
+                            document.getElementById("priceOfAds").value = GetDays();
+                        }
+                    }
+
+                </script>
+
+                <div class="form-group clearfix">
+                    <a href="javascript:;" class="form-wizard-next-btn float-right">Next</a>
+                </div>
 
 
-                    </fieldset>
-                    <fieldset class="wizard-fieldset">
-                        <h5>Desciribe Information</h5>
-                        <div class="row">
-                            <div class="col-md-12">
-                                @Html.LabelFor(model => model.Describe, htmlAttributes: new { @class = "control-label col-md-2" })
-                                @Html.TextAreaFor(model => model.Describe, new { @class = "form-control", @cols = 20, @rows = 7 })
-                                @Html.ValidationMessageFor(model => model.Describe, "", new { @class = "text-danger" })
-                                <div class="wizard-form-error"></div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="field" align="left">
-                                <h3>Upload your images</h3>
-                                <input type="file" id="files" name="files[]" multiple />
-                            </div>
-                            @*<div style='padding:14px'>
-                                    <label for="files">Select multiple files: </label>
-                                    <input id="files" type="file" multiple />
-                                </div>
-                                <div style='padding:14px; margin:auto' ;>
-                                    <div id="sortableImgThumbnailPreview">
+            </fieldset>
+            <fieldset class="wizard-fieldset">
+                <h5>Desciribe Information</h5>
+                <div class="row">
+                    <div class="col-md-12">
+                        @Html.LabelFor(model => model.Describe, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.TextAreaFor(model => model.Describe, new { @class = "form-control", @cols = 20, @rows = 7 })
+                        @Html.ValidationMessageFor(model => model.Describe, "", new { @class = "text-danger" })
+                        <div class="wizard-form-error"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="field" align="left">
+                        <h3>Upload your images</h3>
+                        <input type="file" id="files" name="files[]" multiple />
+                    </div>
+                    @*<div style='padding:14px'>
+                <label for="files">Select multiple files: </label>
+                <input id="files" type="file" multiple />
+            </div>
+            <div style='padding:14px; margin:auto' ;>
+                <div id="sortableImgThumbnailPreview">
 
-                                    </div>
+                </div>
 
-                                </div>*@
-
-                        </div>
-                        <div class="form-group clearfix">
-                            <a href="javascript:;" class="form-wizard-previous-btn float-left">Previous</a>
-                            <a href="javascript:;" class="form-wizard-next-btn float-right">Next</a>
-                        </div>
-                    </fieldset>
+            </div>*@
+                </div>
+                @if (ViewBag.ErrorMessage != null)
+                {
+                    <span class="text-danger">@ViewBag.ErrorMessage</span>
+                }
+                <div class="form-group clearfix">
+                    <a href="javascript:;" class="form-wizard-previous-btn float-left">Previous</a>
+                    <a href="javascript:;" class="form-wizard-next-btn float-right">Next</a>
+                </div>
+            </fieldset>
                     <fieldset class="wizard-fieldset">
                         <h5>Addition Information</h5>
                         <div class="row">

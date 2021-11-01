@@ -1,31 +1,474 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿@model IEnumerable<Project_Real__estate.Models.Advertisement>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutIndex.cshtml";
 }
+<link href="~/Content/post.css" rel="stylesheet" />
+<script src="~/scripts/jquery-3.4.1.min.js"></script>
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/post.js" type="text/javascript"></script>
+
+<section class="popular__city-large">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="title__head-v2">
+                    <h2 class="text-capitalize">popular city</h2>
+                    <p class="text-capitalize mb-0">Find Properties In These Cities.</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-lg-3">
+                <!-- CARD IMAGE -->
+                <a href="#">
+                    <div class="card__image-hover-style-v3">
+                        <div class="card__image-hover-style-v3-thumb h-230">
+                            <img src="~/Images/600x400.jpg" alt="" class="img-fluid w-100">
+                        </div>
+                        <div class="overlay">
+                            <div class="desc">
+                                <h6 class="text-capitalize">rome</h6>
+                                <p class="text-capitalize">70 properties</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <!-- CARD IMAGE -->
+                <a href="#">
+                    <div class="card__image-hover-style-v3">
+                        <div class="card__image-hover-style-v3-thumb h-230">
+                            <img src="~/Images/600x400.jpg" alt="" class="img-fluid w-100">
+                        </div>
+                        <div class="overlay">
+                            <div class="desc">
+                                <h6 class="text-capitalize">australia</h6>
+                                <p class="text-capitalize">70 properties</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <!-- CARD IMAGE -->
+                <a href="#">
+                    <div class="card__image-hover-style-v3">
+                        <div class="card__image-hover-style-v3-thumb h-230">
+                            <img src="~/Images/600x400.jpg" alt="" class="img-fluid w-100">
+                        </div>
+                        <div class="overlay">
+                            <div class="desc">
+                                <h6 class="text-capitalize">indonesia</h6>
+                                <p class="text-capitalize">70 properties</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <!-- CARD IMAGE -->
+                <a href="#">
+                    <div class="card__image-hover-style-v3">
+                        <div class="card__image-hover-style-v3-thumb h-230">
+                            <img src="~/Images/600x400.jpg" alt="" class="img-fluid w-100">
+                        </div>
+                        <div class="overlay">
+                            <div class="desc">
+                                <h6 class="text-capitalize">paris</h6>
+                                <p class="text-capitalize">70 properties</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+</section>
+<!-- END POPULAR CITY -->
+<!-- FEATURED PROPERTY -->
+<section class="recent__property pt-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="title__head-v2">
+                    <h2 class="text-capitalize">featured property</h2>
+                    <p class="text-capitalize">Handpicked Exclusive Properties By Our Team.</p>
+                </div>
+            </div>
+        </div>
+        <div class="recent__property-carousel owl-carousel owl-theme">
+
+            @foreach (var item in Model)
+            {
+
+                <div class="item">
+                    <!-- CARD IMAGE -->
+
+                    <a href="@Url.Action("Details", new { id = item.adsId })">
+                        <div class="card__image-hover h-250">
+                            <div class="card__image-hover-overlay">
+                                <div class="listing-badges">
+                                    <span class="featured">
+                                        Featured
+                                    </span>
+                                    <span>
+                                        For Rent
+                                    </span>
+                                </div>
+                                <div class="card__image-content">
+                                    <div class="card__image-content-desc">
+                                        <h6>@item.Tiltle</h6>
+                                        <p class="mb-0">@item.EstatePrice @item.CurrentSymbol</p>
+                                    </div>
+                                    <ul class="list-inline card__hidden-content">
+                                        <li class="list-inline-item">
+                                            @Html.DisplayNameFor(model => model.Toilets)
+                                            <span>
+                                                <i class="fa fa-bath"></i> @item.Toilets
+                                            </span>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            @Html.DisplayNameFor(model => model.Bedrooms)
+                                            <span>
+                                                <i class="fa fa-bed"></i> @item.Bedrooms
+                                            </span>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            @Html.DisplayNameFor(model => model.floors)
+                                            <span>
+                                                <i class="fa fa-inbox"></i> @item.floors
+                                            </span>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            @Html.DisplayNameFor(model => model.Area)
+                                            <span>
+                                                <i class="fa fa-map"></i>@item.Area m²
+                                            </span>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                                @if (item.Images.FirstOrDefault() != null)
+                                {
+                                    <img src="~/Images/@item.Images.First().FileName" alt="" class="img-fluid h-40 ">
+                                }
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
     </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+</section>
+<!-- END FEATURED PROPERTY -->
+<!-- RECENTS CITY -->
+<section class="recent__property pt-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="title__head-v2">
+                    <h2 class="text-capitalize">recent property</h2>
+                    <p class="text-capitalize">Handpicked Exclusive Properties By Our Team.</p>
+                </div>
+            </div>
+        </div>
+        <div class="recent__property-carousel owl-carousel owl-theme">
+            @foreach (var item in Model)
+            {
+
+                <div class="item">
+                    <!-- CARD IMAGE -->
+
+                    <a href="@Url.Action("Details", new { id = item.adsId })">
+                        <div class="card__image-hover h-250">
+                            <div class="card__image-hover-overlay">
+                                <div class="listing-badges">
+                                    <span class="featured">
+                                        Featured
+                                    </span>
+                                    <span>
+                                        For Rent
+                                    </span>
+                                </div>
+                                <div class="card__image-content">
+                                    <div class="card__image-content-desc">
+                                        <h6>@item.Tiltle</h6>
+                                        <p class="mb-0">@item.EstatePrice @item.CurrentSymbol</p>
+                                    </div>
+                                    <ul class="list-inline card__hidden-content">
+                                        <li class="list-inline-item">
+                                            @Html.DisplayNameFor(model => model.Toilets)
+                                            <span>
+                                                <i class="fa fa-bath"></i> @item.Toilets
+                                            </span>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            @Html.DisplayNameFor(model => model.Bedrooms)
+                                            <span>
+                                                <i class="fa fa-bed"></i> @item.Bedrooms
+                                            </span>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            @Html.DisplayNameFor(model => model.floors)
+                                            <span>
+                                                <i class="fa fa-inbox"></i> @item.floors
+                                            </span>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            @Html.DisplayNameFor(model => model.Area)
+                                            <span>
+                                                <i class="fa fa-map"></i>@item.Area m²
+                                            </span>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                                @if (item.Images.FirstOrDefault() != null)
+                                {
+                                    <img src="~/Images/@item.Images.First().FileName" alt="" class="img-fluid h-40 ">
+                                }
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
     </div>
-</div>
+</section>
+<!-- END RECENTS CITY -->
+<!-- ABOUT -->
+<section class="home__about bg-theme-v7">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-7">
+                <div class="title__leading">
+                    <!-- <h6 class="text-uppercase">trusted By thousands</h6> -->
+                    <h2 class="text-capitalize">why choose use?</h2>
+                    <p>
+                        The first step in selling your property is to get a valuation from local experts. They will
+                        inspect your home and take into account its unique features, the area and market conditions
+                        before providing you with the most accurate valuation.
+                    </p>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt
+                        ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                        laboris nisi ut aliquip ex ea commodo consequat.
+                    </p>
+                    <a href="#" class="btn btn-primary mt-3 text-capitalize">
+                        read more
+                        <i class="fa fa-angle-right ml-3 "></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- END ABOUT -->
+<!-- OUR TEAM -->
+<section class="our__team">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 ">
+                <div class="title__head-v2">
+                    <h2 class="text-capitalize">
+                        meet our team
+                    </h2>
+                    <p class="text-capitalize">see our top of the month teams</p>
+
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-lg-4">
+                <div class="wrap-agent">
+                    <div class="team-member">
+                        <div class="team-img">
+                            <img alt="team member" class="img-fluid w-100" src="~/Images/360x300.jpg">
+                        </div>
+                        <div class="team-hover">
+                            <div class="desk">
+                                <h5>
+                                    Hi There !
+                                </h5>
+                                <p>
+                                    I am Senior Agent Property
+                                </p>
+                                <a class="btn btn-primary" href="#">
+                                    Agent Profile
+                                </a>
+                            </div>
+                            <ul class="list-inline s-link mb-0">
+                                <li class="list-inline-item">
+                                    <a href="#">
+                                        <i class="fa fa-facebook">
+                                        </i>
+                                    </a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a href="#">
+                                        <i class="fa fa-twitter">
+                                        </i>
+                                    </a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a href="#">
+                                        <i class="fa fa-google-plus">
+                                        </i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="team-title">
+                            <h6>
+                                Martin Smith
+                            </h6>
+                            <span>
+                                Agent Real Estate
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="wrap-agent">
+                    <div class="team-member">
+                        <div class="team-img">
+                            <img alt="team member" class="img-fluid w-100" src="~/Images/360x300.jpg">
+                        </div>
+                        <div class="team-hover">
+                            <div class="desk">
+                                <h5>
+                                    Hi There !
+                                </h5>
+                                <p>
+                                    I am Senior Agent Property
+                                </p>
+                                <a class="btn btn-primary" href="#">
+                                    Agent Profile
+                                </a>
+                            </div>
+                            <ul class="list-inline s-link mb-0">
+                                <li class="list-inline-item">
+                                    <a href="#">
+                                        <i class="fa fa-facebook">
+                                        </i>
+                                    </a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a href="#">
+                                        <i class="fa fa-twitter">
+                                        </i>
+                                    </a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a href="#">
+                                        <i class="fa fa-google-plus">
+                                        </i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="team-title">
+                            <h6>
+                                Felica Angel
+                            </h6>
+                            <span>
+                                Agent Real Estate
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="wrap-agent">
+                    <div class="team-member">
+                        <div class="team-img">
+                            <img alt="team member" class="img-fluid w-100" src="~/Images/360x300.jpg">
+                        </div>
+                        <div class="team-hover">
+                            <div class="desk">
+                                <h5>
+                                    Hi There !
+                                </h5>
+                                <p>
+                                    I am Senior Agent Property
+                                </p>
+                                <a class="btn btn-primary" href="#">
+                                    Agent Profile
+                                </a>
+                            </div>
+                            <ul class="list-inline s-link mb-0">
+                                <li class="list-inline-item">
+                                    <a href="#">
+                                        <i class="fa fa-facebook">
+                                        </i>
+                                    </a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a href="#">
+                                        <i class="fa fa-twitter">
+                                        </i>
+                                    </a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a href="#">
+                                        <i class="fa fa-google-plus">
+                                        </i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="team-title">
+                            <h6>
+                                Sara libson
+                            </h6>
+                            <span>
+                                Agent Real Estate
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</section>
+<!-- END TEAM -->
+<!-- CALL TO ACTION -->
+<section class="cta-v1 py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-9">
+                <h2 class="text-uppercase text-white">Looking To Sell Or Rent Your Property?</h2>
+                <p class="text-capitalize text-white">
+                    We Will Assist You In The Best And Comfortable Property
+                    Services
+                    For You
+                </p>
+
+            </div>
+            <div class="col-lg-3">
+                <a href="#" class="btn btn-light text-uppercase ">
+                    request a quote
+                    <i class="fa fa-angle-right ml-3 arrow-btn "></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- END CALL TO ACTION -->

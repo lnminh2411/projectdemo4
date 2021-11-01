@@ -18,7 +18,8 @@ namespace Project_Real__estate.Controllers
         private projectEntities1 db = new projectEntities1();
         public ActionResult Index()
         {
-            return View();
+            var advertisements = db.Advertisements.Include(a => a.Agent).Include(a => a.Category).Include(a => a.Payment).Include(a => a.Seller).Include(a => a.User).Where(a => a.isActivate == true);
+            return View(advertisements.ToList());
         }
 
         public ActionResult About()
@@ -36,17 +37,26 @@ namespace Project_Real__estate.Controllers
         }
         public ActionResult NewPost()
         {
-            ViewBag.AgentId = new SelectList(db.Agents, "AgentId", "AgentName");
-            ViewBag.CategoryId = new SelectList(db.Categories, "CategoryId", "CategoryName");
+            var agentId = Session["AgentId"];
+            var sellerId = Session["SellerId"];
+            if (agentId != null || sellerId != null)
+            {
+                ViewBag.AgentId = Session["AgentId"];
+                ViewBag.CategoryId = new SelectList(db.Categories, "CategoryId", "CategoryName");
             ViewBag.PaymentId = new SelectList(db.Payments, "PaymentId", "PaymentName");
-            ViewBag.SellerId = new SelectList(db.Sellers, "SellerId", "Name");
-            ViewBag.UserId = new SelectList(db.Users, "UserId", "UserName");
+                ViewBag.AgentId = Session["SellerId"];
+                ViewBag.UserId = new SelectList(db.Users, "UserId", "UserName");
             ViewBag.Type = new List<SelectListItem>()
             {
                 new SelectListItem() { Value="Bán", Text= "Bán" },
                 new SelectListItem() { Value="Thuê", Text= "Thuê" },
                 new SelectListItem() { Value="Dự Án", Text= "Dự Án" }
              };
+            }
+            else
+            {
+                return RedirectToAction("Login", "RegisterLoginView");
+            }
             return View();
         }
 
@@ -66,26 +76,47 @@ namespace Project_Real__estate.Controllers
                     if (file != null && file.ContentLength > 0)
                     {
                         var fileName = Path.GetFileName(file.FileName);
-                        Image img = new Image()
+                        var random = Guid.NewGuid() + fileName;
+                        var ext = fileName.Substring(fileName.LastIndexOf(".") + 1).ToLower();
+                        if (ext.ToLower() == "jpeg" || ext.ToLower() == "jpg" || ext.ToLower() == "png")
                         {
-                            FileName = fileName,
-                            Extension = Path.GetExtension(fileName)
-                        };
-                        imglist.Add(img);
+                            Image img = new Image()
+                            {
+                                FileName = random,
+                                Extension = Path.GetExtension(fileName)
+                            };
+                            imglist.Add(img);
 
-                        var path = Path.Combine(Server.MapPath("~/Images/"), fileName);
-                        file.SaveAs(path);
+                            var path = Path.Combine(Server.MapPath("~/Images/"), img.FileName);
+                            file.SaveAs(path);
 
-                        WebImage imgSize = new WebImage(file.InputStream);
-                        if (imgSize.Width > 200)
-                            imgSize.Resize(200, 200);
-                        imgSize.Save(path);
+
+                            WebImage imgSize = new WebImage(file.InputStream);
+                            if (imgSize.Width > 200)
+                                imgSize.Resize(200, 200);
+                            imgSize.Save(path);
+                        }
+                        else
+                        {
+                            ViewBag.ErrorMessage = "File Extension Is InValid - Only Upload JPG/JPEG/PNG File";
+                            return View();
+                        }
                     }
+                }
+                if (Session["AgentId"] != null)
+                {
+                    advertisement.AgentId = Convert.ToInt32(Session["AgentId"]);
+                    advertisement.SellerId = null;
+                }
+                else if (Session["SellerId"] != null)
+                {
+                    advertisement.SellerId = Convert.ToInt32(Session["SellerId"]);
+                    advertisement.AgentId = null;
                 }
 
                 advertisement.Reports = new List<Report>() {
                     new Report() { ReportDate= DateTime.Now, AdsId = advertisement.adsId, AgentId = advertisement.AgentId, SellerId = advertisement.SellerId, Price = advertisement.priceOfAds } };
-                
+
                 advertisement.Images = imglist;
                 db.Advertisements.Add(advertisement);
                 db.SaveChanges();
@@ -155,7 +186,7 @@ namespace Project_Real__estate.Controllers
                     advertisements = advertisements.OrderByDescending(s => s.EstatePrice);
                     break;
                 case "Sell":
-                    advertisements = advertisements.Where(s=>s.StatusHouse.Equals("Sale")).OrderBy(s => s.Tiltle);
+                    advertisements = advertisements.Where(s => s.StatusHouse.Equals("Sale")).OrderBy(s => s.Tiltle);
                     break;
                 case "Rent":
                     advertisements = advertisements.Where(s => s.StatusHouse.Equals("Rent")).OrderBy(s => s.Tiltle);
@@ -167,9 +198,9 @@ namespace Project_Real__estate.Controllers
 
             int pageSize = 3;
             int pageNumber = (page ?? 1);
-                      
+
             return View(advertisements.ToPagedList(pageNumber, pageSize));
-           
+
         }
         public ActionResult Details(int? id)
         {
