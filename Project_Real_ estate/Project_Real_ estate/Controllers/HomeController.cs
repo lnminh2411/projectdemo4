@@ -43,10 +43,10 @@ namespace Project_Real__estate.Controllers
             {
                 ViewBag.AgentId = Session["AgentId"];
                 ViewBag.CategoryId = new SelectList(db.Categories, "CategoryId", "CategoryName");
-            ViewBag.PaymentId = new SelectList(db.Payments, "PaymentId", "PaymentName");
+                ViewBag.PaymentId = new SelectList(db.Payments, "PaymentId", "PaymentName");
                 ViewBag.AgentId = Session["SellerId"];
                 ViewBag.UserId = new SelectList(db.Users, "UserId", "UserName");
-            ViewBag.Type = new List<SelectListItem>()
+                ViewBag.Type = new List<SelectListItem>()
             {
                 new SelectListItem() { Value="Bán", Text= "Bán" },
                 new SelectListItem() { Value="Thuê", Text= "Thuê" },
@@ -219,6 +219,91 @@ namespace Project_Real__estate.Controllers
             images = db.Images.Where(x => x.AdsId == id).ToList();
             ViewBag.file = images;
             return View(advertisement);
+        }
+
+        public ActionResult AgentEdit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Agent agent = db.Agents.Find(id);
+            if (agent == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.paymentId = new SelectList(db.Payments, "PaymentId", "PaymentName", agent.paymentId);
+            return View(agent);
+        }
+
+        // POST: Agents/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AgentEdit(Agent agent)
+        {
+            ModelState.Remove("Password");
+            ModelState.Remove("ConfirmPassword");
+            ModelState.Remove("isActivate");
+            ModelState.Remove("UserId");
+            if (ModelState.IsValid)
+            {
+                var data = db.Agents.Find(agent.AgentId);
+                agent.Password = data.Password;
+                agent.ConfirmPassword = agent.Password;
+                db.Configuration.ValidateOnSaveEnabled = false;
+                db.Entry(data).CurrentValues.SetValues(agent);
+                db.SaveChanges();
+
+                return RedirectToAction("Index");
+            }
+            ViewBag.paymentId = new SelectList(db.Payments, "PaymentId", "PaymentName", agent.paymentId);
+            return View(agent);
+        }
+        public ActionResult SellerEdit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Seller seller = db.Sellers.Find(id);
+            if (seller == null)
+            {
+                return HttpNotFound();
+            }
+            return View(seller);
+        }
+
+        // POST: Sellers/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SellerEdit(Seller seller)
+        {
+            ModelState.Remove("Password");
+            ModelState.Remove("ConfirmPassword");
+            ModelState.Remove("isActivate");
+            ModelState.Remove("UserId");
+            if (ModelState.IsValid)
+            {
+                var data = db.Sellers.Find(seller.SellerId);
+                seller.Password = data.Password;
+                seller.ConfirmPassword = data.Password;
+                seller.Birthdate = data.Birthdate;
+                db.Configuration.ValidateOnSaveEnabled = false;
+                db.Entry(data).CurrentValues.SetValues(seller);
+                db.SaveChanges();
+
+                return RedirectToAction("Index");
+            }
+            return View(seller);
+        }
+        public ActionResult Logout()
+        {
+            Session.Clear();
+            return RedirectToAction("Index");
         }
     }
 }

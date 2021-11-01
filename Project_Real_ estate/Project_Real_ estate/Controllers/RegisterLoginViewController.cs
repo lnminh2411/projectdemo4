@@ -57,7 +57,7 @@ namespace Project_Real__estate.Controllers
                 if (check == null)
                 {
                     rv.Seller.Password = GetMD5(rv.Seller.Password);
-                    rv.Seller.ConfirmPassword = rv.Seller.ConfirmPassword;
+                    rv.Seller.ConfirmPassword = GetMD5(rv.Seller.ConfirmPassword);
                     rv.Seller.isActivate = false;
                     db.Sellers.Add(rv.Seller);
                     db.SaveChanges();

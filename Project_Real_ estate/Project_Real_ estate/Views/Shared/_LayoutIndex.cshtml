@@ -32,11 +32,100 @@
 <body>
     <!-- HEADER -->
     <header class="jumbotron bg-theme-v5">
+
         <div class="bg-overlay"></div>
         <!-- NAVBAR -->
+        <div class="topbar d-none d-sm-block">
+            @if (Session["AgentId"] == null && Session["SellerId"] == null)
+            {
+                <div class="container ">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-5">
+                            <div class="topbar-left">
+                                <div class="topbar-text">
+                                    @DateTime.Now
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-7">
+                            <div class="list-unstyled topbar-right">
+                                <ul class="topbar-link">
+                                    <li><a href="#" title="">Career</a></li>
+                                    <li><a href="#" title="">Contact Us</a></li>
+                                    <li><a href="@Url.Action("Login", "RegisterLoginView")" title="">Login</a></li>
+                                    <li><a href="@Url.Action("Register", "RegisterLoginView")" title="">Register</a></li>
+                                </ul>
+                                <ul class="topbar-sosmed">
+                                    <li>
+                                        <a href="#"><i class="fa fa-facebook"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="fa fa-twitter"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="fa fa-instagram"></i></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            else if (Session["AgentId"] != null)
+            {
+                <div class="container ">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-5">
+                            <div class="topbar-left">
+                                <div class="topbar-text">
+                                    @DateTime.Now
+                                    <p>Hello: @Session["AgentName"]</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-7">
+                            <div class="list-unstyled topbar-right">
+                                <ul class="topbar-link">
+                                    <li><a href="#" title="">Career</a></li>
+                                    <li><a href="#" title="">Contact Us</a></li>
+
+                                    <li><a href="@Url.Action("AgentEdit","Home", new { id = Convert.ToInt32(Session["AgentId"]) })" title="">Edit</a></li>
+                                    <li><a href="@Url.Action("Logout","Home")" title="">Logout</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            else if (Session["SellerId"] != null)
+            {
+                <div class="container ">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-5">
+                            <div class="topbar-left">
+                                <div class="topbar-text">
+                                    @DateTime.Now
+                                    <p>Hello: @Session["Name"]</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-7">
+                            <div class="list-unstyled topbar-right">
+                                <ul class="topbar-link">
+                                    <li><a href="#" title="">Career</a></li>
+                                    <li><a href="#" title="">Contact Us</a></li>
+                                    <li><a href="@Url.Action("SellerEdit","Home", new { id = Convert.ToInt32(Session["SellerId"]) })" title="">Edit</a></li>
+                                    <li><a href="@Url.Action("Logout","Home")" title="">Logout</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
         <nav class="navbar navbar-hover navbar-expand-lg navbar-soft navbar-transparent">
             <div class="container">
-                <a class="navbar-brand" href="/homepage-v1.html">
+                <a class="navbar-brand" href="@Url.Action("Index","Home")">
                     <img src="~/Images/logo-blue.png" alt="">
                     <img src="~/Images/logo-blue-stiky.png" alt="">
                 </a>
@@ -374,56 +463,56 @@
             </div>
             <div class="row">
                 <div class="col-md-6 col-lg-3">-->
-                    <!-- CARD IMAGE -->
-                    <!--<a href="#">
-                        <div class="card__image-hover-style-v3">
-                            <div class="card__image-hover-style-v3-thumb h-230">
-                                <img src="~/Images/600x400.jpg" alt="" class="img-fluid w-100">
-                            </div>
-                            <div class="overlay">
-                                <div class="desc">
-                                    <h6 class="text-capitalize">rome</h6>
-                                    <p class="text-capitalize">70 properties</p>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
+    <!-- CARD IMAGE -->
+    <!--<a href="#">
+            <div class="card__image-hover-style-v3">
+                <div class="card__image-hover-style-v3-thumb h-230">
+                    <img src="~/Images/600x400.jpg" alt="" class="img-fluid w-100">
                 </div>
-                <div class="col-md-6 col-lg-3">-->
-                    <!-- CARD IMAGE -->
-                    <!--<a href="#">
-                        <div class="card__image-hover-style-v3">
-                            <div class="card__image-hover-style-v3-thumb h-230">
-                                <img src="~/Images/600x400.jpg" alt="" class="img-fluid w-100">
-                            </div>
-                            <div class="overlay">
-                                <div class="desc">
-                                    <h6 class="text-capitalize">australia</h6>
-                                    <p class="text-capitalize">70 properties</p>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
+                <div class="overlay">
+                    <div class="desc">
+                        <h6 class="text-capitalize">rome</h6>
+                        <p class="text-capitalize">70 properties</p>
+                    </div>
                 </div>
-                <div class="col-md-6 col-lg-3">-->
-                    <!-- CARD IMAGE -->
-                    <!--<a href="#">
-                        <div class="card__image-hover-style-v3">
-                            <div class="card__image-hover-style-v3-thumb h-230">
-                                <img src="~/Images/600x400.jpg" alt="" class="img-fluid w-100">
-                            </div>
-                            <div class="overlay">
-                                <div class="desc">
-                                    <h6 class="text-capitalize">indonesia</h6>
-                                    <p class="text-capitalize">70 properties</p>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
+            </div>
+        </a>
+    </div>
+    <div class="col-md-6 col-lg-3">-->
+    <!-- CARD IMAGE -->
+    <!--<a href="#">
+            <div class="card__image-hover-style-v3">
+                <div class="card__image-hover-style-v3-thumb h-230">
+                    <img src="~/Images/600x400.jpg" alt="" class="img-fluid w-100">
                 </div>
-                <div class="col-md-6 col-lg-3">-->
-                    <!-- CARD IMAGE -->
-                    <!--<a href="#">
+                <div class="overlay">
+                    <div class="desc">
+                        <h6 class="text-capitalize">australia</h6>
+                        <p class="text-capitalize">70 properties</p>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="col-md-6 col-lg-3">-->
+    <!-- CARD IMAGE -->
+    <!--<a href="#">
+            <div class="card__image-hover-style-v3">
+                <div class="card__image-hover-style-v3-thumb h-230">
+                    <img src="~/Images/600x400.jpg" alt="" class="img-fluid w-100">
+                </div>
+                <div class="overlay">
+                    <div class="desc">
+                        <h6 class="text-capitalize">indonesia</h6>
+                        <p class="text-capitalize">70 properties</p>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="col-md-6 col-lg-3">-->
+    <!-- CARD IMAGE -->
+    <!--<a href="#">
                         <div class="card__image-hover-style-v3">
                             <div class="card__image-hover-style-v3-thumb h-230">
                                 <img src="~/Images/600x400.jpg" alt="" class="img-fluid w-100">
@@ -454,60 +543,59 @@
             </div>
             <div class="recent__property-carousel owl-carousel owl-theme">
                 <div class="item">-->
-                    <!-- CARD IMAGE -->
-
-                    <!--<a href="#">
-                        <div class="card__image-hover h-250">
-                            <div class="card__image-hover-overlay">
-                                <div class="listing-badges">
-                                    <span class="featured">
-                                        Featured
-                                    </span>
-                                    <span>
-                                        For Rent
-                                    </span>
-                                </div>
-                                <div class="card__image-content">
-                                    <div class="card__image-content-desc">
-                                        <h6> Citra Garden Estate</h6>
-                                        <p class="mb-0"> $1300 / monthly</p>
-                                    </div>
-                                    <ul class="list-inline card__hidden-content">
-                                        <li class="list-inline-item">
-                                            Baths
-                                            <span>
-                                                <i class="fa fa-bath"></i> 2
-                                            </span>
-                                        </li>
-                                        <li class="list-inline-item">
-                                            Beds
-                                            <span>
-                                                <i class="fa fa-bed"></i> 2
-                                            </span>
-                                        </li>
-                                        <li class="list-inline-item">
-                                            Rooms
-                                            <span>
-                                                <i class="fa fa-inbox"></i> 3
-                                            </span>
-                                        </li>
-                                        <li class="list-inline-item">
-                                            Area
-                                            <span>
-                                                <i class="fa fa-map"></i> 1450 sq ft
-                                            </span>
-                                        </li>
-
-                                    </ul>
-                                </div>
-                                <img alt="" src="~/Images/600x400.jpg" class="img-fluid h-40 ">
-                            </div>
+    <!-- CARD IMAGE -->
+    <!--<a href="#">
+            <div class="card__image-hover h-250">
+                <div class="card__image-hover-overlay">
+                    <div class="listing-badges">
+                        <span class="featured">
+                            Featured
+                        </span>
+                        <span>
+                            For Rent
+                        </span>
+                    </div>
+                    <div class="card__image-content">
+                        <div class="card__image-content-desc">
+                            <h6> Citra Garden Estate</h6>
+                            <p class="mb-0"> $1300 / monthly</p>
                         </div>
-                    </a>
+                        <ul class="list-inline card__hidden-content">
+                            <li class="list-inline-item">
+                                Baths
+                                <span>
+                                    <i class="fa fa-bath"></i> 2
+                                </span>
+                            </li>
+                            <li class="list-inline-item">
+                                Beds
+                                <span>
+                                    <i class="fa fa-bed"></i> 2
+                                </span>
+                            </li>
+                            <li class="list-inline-item">
+                                Rooms
+                                <span>
+                                    <i class="fa fa-inbox"></i> 3
+                                </span>
+                            </li>
+                            <li class="list-inline-item">
+                                Area
+                                <span>
+                                    <i class="fa fa-map"></i> 1450 sq ft
+                                </span>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <img alt="" src="~/Images/600x400.jpg" class="img-fluid h-40 ">
                 </div>
-                <div class="item">-->
-                    <!-- CARD IMAGE -->
-                    <!--<a href="#">
+            </div>
+        </a>
+    </div>
+    <div class="item">-->
+    <!-- CARD IMAGE -->
+    <!--<a href="#">
                         <div class="card__image-hover h-250">
                             <div class="card__image-hover-overlay">
                                 <div class="listing-badges">
@@ -974,60 +1062,59 @@
                     </a>
                 </div>
                 <div class="item">-->
-                    <!-- CARD IMAGE -->
-                    <!--<a href="#">
-                        <div class="card__image-hover h-250">
-                            <div class="card__image-hover-overlay">
-                                <div class="listing-badges">
-                                    <span class="featured">
-                                        Featured
-                                    </span>
-                                    <span>
-                                        For Rent
-                                    </span>
-                                </div>
-                                <div class="card__image-content">
-                                    <div class="card__image-content-desc">
-                                        <h6> Ample Apartment At Last Floor</h6>
-                                        <p class="mb-0"> $1300 / monthly</p>
-                                    </div>
-                                    <ul class="list-inline card__hidden-content">
-                                        <li class="list-inline-item">
-                                            Baths
-                                            <span>
-                                                <i class="fa fa-bath"></i> 2
-                                            </span>
-                                        </li>
-                                        <li class="list-inline-item">
-                                            Beds
-                                            <span>
-                                                <i class="fa fa-bed"></i> 2
-                                            </span>
-                                        </li>
-                                        <li class="list-inline-item">
-                                            Rooms
-                                            <span>
-                                                <i class="fa fa-inbox"></i> 3
-                                            </span>
-                                        </li>
-                                        <li class="list-inline-item">
-                                            Area
-                                            <span>
-                                                <i class="fa fa-map"></i> 1450 sq ft
-                                            </span>
-                                        </li>
-
-                                    </ul>
-                                </div>
-                                <img alt="" src="~/Images/600x400.jpg" class="img-fluid h-40 ">
-                            </div>
+    <!-- CARD IMAGE -->
+    <!--<a href="#">
+            <div class="card__image-hover h-250">
+                <div class="card__image-hover-overlay">
+                    <div class="listing-badges">
+                        <span class="featured">
+                            Featured
+                        </span>
+                        <span>
+                            For Rent
+                        </span>
+                    </div>
+                    <div class="card__image-content">
+                        <div class="card__image-content-desc">
+                            <h6> Ample Apartment At Last Floor</h6>
+                            <p class="mb-0"> $1300 / monthly</p>
                         </div>
-                    </a>
-                </div>
-                <div class="item">-->
-                    <!-- CARD IMAGE -->
+                        <ul class="list-inline card__hidden-content">
+                            <li class="list-inline-item">
+                                Baths
+                                <span>
+                                    <i class="fa fa-bath"></i> 2
+                                </span>
+                            </li>
+                            <li class="list-inline-item">
+                                Beds
+                                <span>
+                                    <i class="fa fa-bed"></i> 2
+                                </span>
+                            </li>
+                            <li class="list-inline-item">
+                                Rooms
+                                <span>
+                                    <i class="fa fa-inbox"></i> 3
+                                </span>
+                            </li>
+                            <li class="list-inline-item">
+                                Area
+                                <span>
+                                    <i class="fa fa-map"></i> 1450 sq ft
+                                </span>
+                            </li>
 
-                    <!--<a href="#">
+                        </ul>
+                    </div>
+                    <img alt="" src="~/Images/600x400.jpg" class="img-fluid h-40 ">
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="item">-->
+    <!-- CARD IMAGE -->
+    <!--<a href="#">
                         <div class="card__image-hover h-250">
                             <div class="card__image-hover-overlay">
                                 <div class="listing-badges">
@@ -1086,8 +1173,8 @@
             <div class="row">
                 <div class="col-md-7">
                     <div class="title__leading">-->
-                        <!-- <h6 class="text-uppercase">trusted By thousands</h6> -->
-                        <!--<h2 class="text-capitalize">why choose use?</h2>
+    <!-- <h6 class="text-uppercase">trusted By thousands</h6> -->
+    <!--<h2 class="text-capitalize">why choose use?</h2>
                         <p>
                             The first step in selling your property is to get a valuation from local experts. They will
                             inspect your home and take into account its unique features, the area and market conditions

@@ -1,7 +1,12 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Project_Real_ estate",
+    "\\Project_Real_ estate\\Project_Real_ estate",
+    "\\Project_Real_ estate\\Project_Real_ estate\\Controllers",
+    "\\Project_Real_ estate\\Project_Real_ estate\\Views",
+    "\\Project_Real_ estate\\Project_Real_ estate\\Views\\Home"
   ],
-  "SelectedNode": "\\Project_Real_ estate.sln",
+  "SelectedNode": "\\Project_Real_ estate\\Project_Real_ estate.sln",
   "PreviewInSolutionExplorer": false
 }

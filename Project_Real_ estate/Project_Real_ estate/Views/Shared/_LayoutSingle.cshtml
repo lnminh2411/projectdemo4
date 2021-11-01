@@ -39,7 +39,7 @@
                     <div class="col-sm-12 col-md-5">
                         <div class="topbar-left">
                             <div class="topbar-text">
-                                Monday, March 22, 2020
+                                @DateTime.Now
                             </div>
                         </div>
                     </div>
@@ -48,7 +48,8 @@
                             <ul class="topbar-link">
                                 <li><a href="#" title="">Career</a></li>
                                 <li><a href="#" title="">Contact Us</a></li>
-                                <li><a href="#" title="">Login / Register</a></li>
+                                <li><a href="@Url.Action("Login","RegisterLoginView")" title="">Login</a></li>
+                                <li><a href="@Url.Action("Register","RegisterLoginView")" title="">Register</a></li>
                             </ul>
                             <ul class="topbar-sosmed">
                                 <li>
