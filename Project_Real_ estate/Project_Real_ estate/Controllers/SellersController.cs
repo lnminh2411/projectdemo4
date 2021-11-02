@@ -205,6 +205,38 @@ namespace Project_Real__estate.Controllers
 
             return View(sellers.ToPagedList(pageIndex, defaSize));
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult NotActivate(Seller seller)
+        {
+
+            int t = Convert.ToInt32(Request.Form["id"]);
+            var data = new Seller();
+            data = (db.Sellers.Where(a => a.SellerId == t)).FirstOrDefault();
+            if (seller != null)
+            {
+                seller.SellerId = data.SellerId;
+                seller.Name = data.Name;
+                seller.Email = data.Email;
+                seller.Address = data.Address;
+                seller.Phone = data.Phone;
+                seller.Password = data.Password;
+                seller.ConfirmPassword = seller.Password;
+                seller.Gender = data.Gender;
+                seller.Birthdate = data.Birthdate;
+                seller.isActivate = true;
+                seller.UserId = Convert.ToInt32(Session["UserId"]);
+                db.Configuration.ValidateOnSaveEnabled = false;
+                db.Entry(data).CurrentValues.SetValues(seller);
+                db.SaveChanges();
+                return RedirectToAction("Activate");
+            }
+
+            var sellers = db.Sellers.Include(a => a.User).Where(a => a.isActivate == false);
+            return View(sellers.ToList());
+        }
+
         // GET: Sellers/Details/5
         public ActionResult Details(int? id)
         {

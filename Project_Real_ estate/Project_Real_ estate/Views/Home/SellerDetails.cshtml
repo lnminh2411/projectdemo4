@@ -1,0 +1,37 @@
+﻿@model Project_Real__estate.Models.Seller
+
+@{
+    ViewBag.Title = "SellerDetails";
+    Layout = "~/Views/Shared/_LayoutSingle.cshtml";
+}
+
+<div>
+    <h4>Seller</h4>
+    <hr />
+    <div class="row justify-content-md-start">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    Welcome
+                </div>
+                <div class="card-body">
+                    @if (Session["SellerId"] != null)
+                    {
+                        <p>Name: @Session["Name"]</p>
+                        <p>Email: @Session["Email"]</p>
+                        <p>Birthdate: @Session["Birthdate"]</p>
+                        <p>Phone: @Session["Phone"]</p>
+                        <p>Address: @Session["Address"]</p>
+                        <p>Gender: @Session["Gender"]</p>
+                        <p>Activate: @Session["isActivate"]</p>
+                    }
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.SellerId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

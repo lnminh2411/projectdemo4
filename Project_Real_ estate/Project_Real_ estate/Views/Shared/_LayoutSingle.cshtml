@@ -34,38 +34,116 @@
     <header>
         <!-- NAVBAR TOP -->
         <div class="topbar d-none d-sm-block">
-            <div class="container ">
-                <div class="row">
-                    <div class="col-sm-12 col-md-5">
-                        <div class="topbar-left">
-                            <div class="topbar-text">
-                                @DateTime.Now
+            @if (Session["AgentId"] == null && Session["SellerId"] == null)
+            {
+                <div class="container ">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-5">
+                            <div class="topbar-left">
+                                <div class="topbar-text">
+                                    @DateTime.Now
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-7">
+                            <div class="list-unstyled topbar-right">
+                                <ul class="topbar-link">
+                                    <li><a href="#" title="">Career</a></li>
+                                    <li><a href="#" title="">Contact Us</a></li>
+                                    <li><a href="@Url.Action("Login", "RegisterLoginView")" title="">Login</a></li>
+                                    <li><a href="@Url.Action("Register", "RegisterLoginView")" title="">Register</a></li>
+                                </ul>
+                                <ul class="topbar-sosmed">
+                                    <li>
+                                        <a href="#"><i class="fa fa-facebook"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="fa fa-twitter"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="fa fa-instagram"></i></a>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-12 col-md-7">
-                        <div class="list-unstyled topbar-right">
-                            <ul class="topbar-link">
-                                <li><a href="#" title="">Career</a></li>
-                                <li><a href="#" title="">Contact Us</a></li>
-                                <li><a href="@Url.Action("Login","RegisterLoginView")" title="">Login</a></li>
-                                <li><a href="@Url.Action("Register","RegisterLoginView")" title="">Register</a></li>
-                            </ul>
-                            <ul class="topbar-sosmed">
-                                <li>
-                                    <a href="#"><i class="fa fa-facebook"></i></a>
-                                </li>
-                                <li>
-                                    <a href="#"><i class="fa fa-twitter"></i></a>
-                                </li>
-                                <li>
-                                    <a href="#"><i class="fa fa-instagram"></i></a>
-                                </li>
-                            </ul>
+                </div>
+            }
+            else if (Session["AgentId"] != null)
+            {
+                <div class="container ">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-5">
+                            <div class="topbar-left">
+                                <div class="topbar-text">
+                                    @DateTime.Now
+                                    <ul class="navbar-nav mx-auto ">
+                                        <li class="nav-item dropdown">
+                                            <a class="nav-link active dropdown-toggle" href="@Url.Action("AgentDetails", "Home")" data-toggle="dropdown"> Hello: @Session["AgentName"] </a>
+                                            <ul class="dropdown-menu dropdown-menu-left animate fade-up">
+                                                <li>
+                                                    <a class="dropdown-item" href="@Url.Action("AgentDetails", "Home", new {id = Convert.ToInt32(Session["AgentId"])})"> Details </a>
+                                                </li>
+                                                <li>
+                                                    <a class="dropdown-item" href="@Url.Action("AgentEdit","Home", new { id = Convert.ToInt32(Session["AgentId"])})"> Edit </a>
+                                                </li>
+                                                <li>
+                                                    <a class="dropdown-item" href="/homepage-v3.html"> Home version three </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-7">
+                            <div class="list-unstyled topbar-right">
+                                <ul class="topbar-link">
+                                    <li><a href="@Url.Action("Logout","Home")" title="">Logout</a></li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            }
+            else if (Session["SellerId"] != null)
+            {
+                <div class="container ">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-10">
+                            <div class="topbar-left">
+                                <div class="topbar-text">
+                                    @DateTime.Now
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-2">
+                            <div class="list-unstyled topbar-right">
+                                <ul class="navbar-nav mx-auto ">
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link active dropdown-toggle" href="#" data-toggle="dropdown"> Hello: @Session["Name"] </a>
+                                        <ul class="dropdown-menu dropdown-menu-left animate fade-up">
+                                            <li>
+                                                <a class="dropdown-item" href="@Url.Action("SellerDetails", "Home", new {id = Convert.ToInt32(Session["SellerId"])})"> Details </a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="@Url.Action("SellerEdit","Home", new { id = Convert.ToInt32(Session["SellerId"])})"> Edit </a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="/homepage-v3.html"> Home version three </a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="@Url.Action("Logout","Home")">Logout</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
         </div>
         <!-- END NAVBAR TOP -->
         <!-- NAVBAR -->

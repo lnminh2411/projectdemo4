@@ -305,30 +305,44 @@ namespace Project_Real__estate.Controllers
 
         public ActionResult AgentDetails(int? id)
         {
-            if (id == null)
+            if (Session["Agent"] != null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Agent agent = db.Agents.Find(id);
+                if (agent == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(agent);
             }
-            Agent agent = db.Agents.Find(id);
-            if (agent == null)
+            else
             {
-                return HttpNotFound();
+                return RedirectToAction("Login", "RegisterLoginView");
             }
-            return View(agent);
         }
 
         public ActionResult SellerDetails(int? id)
         {
-            if (id == null)
+            if (Session["SellerId"] != null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Seller seller = db.Sellers.Find(id);
+                if (seller == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(seller);
             }
-            Seller seller = db.Sellers.Find(id);
-            if (seller == null)
+            else
             {
-                return HttpNotFound();
+                return RedirectToAction("Login", "RegisterLoginView");
             }
-            return View(seller);
         }
 
         public static string GetMD5(string str)
