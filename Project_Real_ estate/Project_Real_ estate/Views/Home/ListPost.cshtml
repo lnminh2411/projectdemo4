@@ -386,7 +386,14 @@
                                                                     <ul class="list-inline my-auto">
                                                                         <li class="list-inline-item name">
                                                                             <a href="#">
-                                                                                @item.Agent.AgentName
+                                                                                @if (item.AgentId != null)
+                                                                                {
+                                                                                    @item.Agent.AgentName
+                                                                                }
+                                                                                else if (item.SellerId != null)
+                                                                                {
+                                                                                    @item.Seller.Name
+                                                                                }
                                                                             </a>
 
                                                                         </li>
