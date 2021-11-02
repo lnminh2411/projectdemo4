@@ -164,7 +164,6 @@ namespace Project_Real__estate.Controllers
             ViewBag.UserSortParm = sortOrder == "User" ? "User_desc" : "User";
             ViewBag.PaymentSortParm = sortOrder == "Payment" ? "Payment_desc" : "Payment";
 
-
             if (searchString != null)
             {
                 page = 1;
@@ -224,6 +223,94 @@ namespace Project_Real__estate.Controllers
 
 
             return View(agents.ToPagedList(pageIndex, defaSize));
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult NotActivate( Agent agent)
+        {
+            //ViewBag.CurrentSort = sortOrder;
+            //ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            //ViewBag.UserSortParm = sortOrder == "User" ? "User_desc" : "User";
+            //ViewBag.PaymentSortParm = sortOrder == "Payment" ? "Payment_desc" : "Payment";
+            int t = Convert.ToInt32(Request.Form["id"]);
+            var data = new Agent();
+            data = (db.Agents.Where(a => a.AgentId == t)).FirstOrDefault();
+            if (agent != null)
+            {
+                agent.AgentId = data.AgentId;
+                agent.AgentName = data.AgentName;
+                agent.Email = data.Email;
+                agent.Address = data.Address;
+                agent.Phone = data.Phone;
+                agent.Introduction = data.Introduction;
+                agent.Password = data.Password;
+                agent.ConfirmPassword = agent.Password;
+                agent.EmailHide = data.EmailHide;
+                agent.paymentId = data.paymentId;
+                agent.isActivate = true;
+                agent.UserId = Convert.ToInt32(Session["UserId"]);
+                db.Configuration.ValidateOnSaveEnabled = false;
+                db.Entry(data).CurrentValues.SetValues(agent);
+                db.SaveChanges();
+                return RedirectToAction("Activate");
+            }
+            //if (searchString != null)
+            //{
+            //    page = 1;
+            //}
+            //else
+            //{
+            //    searchString = currentFilter;
+            //}
+
+            //ViewBag.CurrentFilter = searchString;
+            ////
+
+            ////var agents = from s in db.agents join
+            ////             g in db.Genres on
+            ////             s.GenreId equals g.GenreId
+            ////               select s;
+            var agents = db.Agents.Include(a => a.User).Include(a => a.Payment).Where(a => a.isActivate == false);
+            //if (!String.IsNullOrEmpty(searchString))
+            //{
+            //    agents = agents.Where(s => s.AgentName.Contains(searchString));
+            //}
+            //switch (sortOrder)
+            //{
+            //    case "name_desc":
+            //        agents = agents.OrderByDescending(s => s.AgentName);
+            //        break;
+            //    case "Payment":
+            //        agents = agents.OrderBy(s => s.Payment.PaymentName);
+            //        break;
+            //    case "Payment_desc":
+            //        agents = agents.OrderByDescending(s => s.Payment.PaymentName);
+            //        break;
+            //    case "User":
+            //        agents = agents.OrderBy(s => s.User.UserName);
+            //        break;
+            //    case "User_desc":
+            //        agents = agents.OrderByDescending(s => s.User.UserName);
+            //        break;
+            //    default:  // Name ascending 
+            //        agents = agents.OrderBy(s => s.AgentName);
+            //        break;
+            //}
+            //int pageIndex = 1;
+            //pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            //int defaSize = (pageSize ?? 5);
+            //ViewBag.psize = defaSize;
+            //int i = 0;
+            //i++;
+            //ViewBag.PageSize = new List<SelectListItem>()
+            //{
+            //    new SelectListItem() { Value="5", Text= "5" },
+            //    new SelectListItem() { Value="10", Text= "10" },
+            //    new SelectListItem() { Value="15", Text= "15" },
+            //    new SelectListItem() { Value="25", Text= "25" },
+            //    new SelectListItem() { Value="50", Text= "50" },
+            // };
+            return View(agents.ToList());
         }
 
         // GET: Agents/Details/5

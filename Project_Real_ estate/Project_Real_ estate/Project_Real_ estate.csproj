@@ -398,6 +398,7 @@
     <Content Include="Views\RegisterLoginView\Login.cshtml" />
     <Content Include="Views\Home\ListPost.cshtml" />
     <Content Include="Views\Home\Details.cshtml" />
+    <Content Include="Views\Home\AdvertisementEdit.cshtml" />
     <Content Include="Views\Home\AgentEdit.cshtml" />
     <Content Include="Views\Home\SellerEdit.cshtml" />
   </ItemGroup>

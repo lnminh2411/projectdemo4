@@ -7,6 +7,8 @@ using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web.Helpers;
 using System.Web.Mvc;
 
@@ -243,15 +245,13 @@ namespace Project_Real__estate.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult AgentEdit(Agent agent)
         {
-            ModelState.Remove("Password");
-            ModelState.Remove("ConfirmPassword");
-            ModelState.Remove("isActivate");
-            ModelState.Remove("UserId");
             if (ModelState.IsValid)
             {
                 var data = db.Agents.Find(agent.AgentId);
-                agent.Password = data.Password;
+                agent.Password = GetMD5(agent.Password);
                 agent.ConfirmPassword = agent.Password;
+                agent.isActivate = data.isActivate;
+                agent.UserId = data.UserId;
                 db.Configuration.ValidateOnSaveEnabled = false;
                 db.Entry(data).CurrentValues.SetValues(agent);
                 db.SaveChanges();
@@ -282,16 +282,13 @@ namespace Project_Real__estate.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult SellerEdit(Seller seller)
         {
-            ModelState.Remove("Password");
-            ModelState.Remove("ConfirmPassword");
-            ModelState.Remove("isActivate");
-            ModelState.Remove("UserId");
             if (ModelState.IsValid)
             {
                 var data = db.Sellers.Find(seller.SellerId);
-                seller.Password = data.Password;
-                seller.ConfirmPassword = data.Password;
-                seller.Birthdate = data.Birthdate;
+                seller.Password = GetMD5(seller.Password);
+                seller.ConfirmPassword = seller.Password;
+                seller.isActivate = data.isActivate;
+                seller.UserId = data.UserId;
                 db.Configuration.ValidateOnSaveEnabled = false;
                 db.Entry(data).CurrentValues.SetValues(seller);
                 db.SaveChanges();
@@ -304,6 +301,82 @@ namespace Project_Real__estate.Controllers
         {
             Session.Clear();
             return RedirectToAction("Index");
+        }
+
+        public ActionResult AgentDetails(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Agent agent = db.Agents.Find(id);
+            if (agent == null)
+            {
+                return HttpNotFound();
+            }
+            return View(agent);
+        }
+
+        public ActionResult SellerDetails(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Seller seller = db.Sellers.Find(id);
+            if (seller == null)
+            {
+                return HttpNotFound();
+            }
+            return View(seller);
+        }
+
+        public static string GetMD5(string str)
+        {
+            MD5 md5 = new MD5CryptoServiceProvider();
+            byte[] fromData = Encoding.UTF8.GetBytes(str);
+            byte[] targetData = md5.ComputeHash(fromData);
+            string byte2String = null;
+
+            for (int i = 0; i < targetData.Length; i++)
+            {
+                byte2String += targetData[i].ToString("x2");
+            }
+            return byte2String;
+        }
+
+        public ActionResult AdvertisementEdit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Advertisement ad = db.Advertisements.Find(id);
+            if (ad == null)
+            {
+                return HttpNotFound();
+            }
+            return View(ad);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AdvertisementEdit(Advertisement advertisement)
+        {
+            ModelState.Remove("isActivate");
+            ModelState.Remove("UserId");
+            if (ModelState.IsValid)
+            {
+                var data = db.Advertisements.Find(advertisement.adsId);
+                advertisement.AgentId = data.AgentId;
+                advertisement.SellerId = data.SellerId;
+
+                db.Configuration.ValidateOnSaveEnabled = false;
+                db.Entry(data).CurrentValues.SetValues(advertisement);
+                db.SaveChanges();
+
+                return RedirectToAction("Index");
+            }
+            return View(advertisement);
         }
     }
 }

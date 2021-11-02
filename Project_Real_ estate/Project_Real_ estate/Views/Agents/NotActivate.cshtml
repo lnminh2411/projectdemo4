@@ -65,31 +65,40 @@
                             @foreach (var item in Model)
                             {
 
-                                <tr>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.AgentName)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Email)
-                                    </td>
+                        <tr>
+                            @using (Html.BeginForm("NotActivate", "Agents", FormMethod.Post))
+                            {
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.AgentName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Email)
+                                </td>
 
 
 
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.User.UserName)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Payment.PaymentName)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.isActivate)
-                                    </td>
-                                    <td>
-                                        @Html.ActionLink("Edit", "Edit", new { id = item.AgentId }) |
-                                        @Html.ActionLink("Details", "Details", new { id = item.AgentId }) |
-                                        @Html.ActionLink("Delete", "Delete", new { id = item.AgentId })
-                                    </td>
-                                </tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.User.UserName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Payment.PaymentName)
+                                </td>
+
+                                <td>
+
+                                    @Html.AntiForgeryToken()
+                                    @Html.DisplayFor(modeItem => item.isActivate)
+                                    <input type="hidden" value="@item.AgentId" name="id" />
+                                </td>
+                                <td>
+                                    <div class="hidden-sm hidden-xs action-buttons">
+                                        <div class="blue">
+                                            <input type="submit" value="Activate" class="btn btn-danger" />
+                                        </div>
+                                    </div>
+                                </td>
+                            }
+                        </tr>
 
 
                             }

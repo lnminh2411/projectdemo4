@@ -17,7 +17,7 @@ namespace Project_Real__estate.Controllers
         public ActionResult Register(AgentSellerView rv)
         {
             ViewBag.UserId = new SelectList(db.Users, "UserId", "UserName");
-            ViewBag.paymentId = new SelectList(db.Payments, "PaymentId", "PaymentName");
+            ViewBag.PaymentId = new SelectList(db.Payments, "PaymentId", "PaymentName");
             return View(new AgentSellerView { Agent = new Agent(), Seller = new Seller() });
         }
 
@@ -37,7 +37,7 @@ namespace Project_Real__estate.Controllers
                     db.Configuration.ValidateOnSaveEnabled = false;
                     db.Agents.Add(rv.Agent);
                     db.SaveChanges();
-                    return RedirectToAction("LoginAgent", "RegisterLoginView");
+                    return RedirectToAction("Login", "RegisterLoginView");
                 }
                 else
                 {
@@ -61,7 +61,7 @@ namespace Project_Real__estate.Controllers
                     rv.Seller.isActivate = false;
                     db.Sellers.Add(rv.Seller);
                     db.SaveChanges();
-                    return RedirectToAction("LoginAgent", "RegisterLoginView");
+                    return RedirectToAction("Login", "RegisterLoginView");
                 }
                 else
                 {
